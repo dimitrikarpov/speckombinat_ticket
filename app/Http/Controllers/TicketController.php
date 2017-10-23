@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Ticket;
+use App\Category;
 use Illuminate\Http\Request;
 
 class TicketController extends Controller
@@ -14,7 +15,12 @@ class TicketController extends Controller
      */
     public function index()
     {
-        //
+        $allCategories = Category::all();
+        $actualCategories = $allCategories->reject(function($c) {
+            return $c->archived;
+        });
+
+        return view('ticket.index', compact('actualCategories'));
     }
 
     /**

@@ -11,6 +11,9 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', 'TicketController@index');
+Route::post('/new', 'TicketController@store');
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
