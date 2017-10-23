@@ -13,4 +13,12 @@ class Ticket extends Model
     {
         return $this->belongsTo('App\User');
     }
+
+    /**
+     * Get the category that ticket belongs to
+     */
+    public function category()
+    {
+        return $this->belongsTo('App\Category');
+    }
 }
