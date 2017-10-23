@@ -20,6 +20,7 @@ class CreateTicketsTable extends Migration
             $table->text('description')->comment('issue descritption');
             $table->string('priority');
             $table->integer('user_id')->nullable()->default(null)->comment('issue assigned to');
+            $table->integer('category_id')->nullable()->default(null)->comment('issue category');
             $table->string('status');
             $table->text('notes');
             $table->timestamps();
