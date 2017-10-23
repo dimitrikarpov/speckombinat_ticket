@@ -11,6 +11,17 @@
 
                     <form class="form-horizontal" method="POST" action="/new">
                         {{ csrf_field() }}
+
+                        @if ($errors->any())
+                            <div class="alert alert-danger">
+                                <ul>
+                                    @foreach ($errors->all() as $error)
+                                        <li>{{ $error }}</li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                        @endif
+
                       <div class="form-group">
                         <label for="inputName" class="col-sm-2 control-label">Имя</label>
                         <div class="col-sm-10">
@@ -34,21 +45,14 @@
 
                       <div class="form-group">
                         <div class="col-sm-offset-2 col-sm-10">
-                            @foreach($actualCategories as $category)
+                            @foreach($categories as $category)
                             <div class="radio">
                               <label>
-                                <input type="radio" name="optionsRadios" id="optionsRadios1" value="{{ $category->name }}">
+                                <input type="radio" name="category_id" value="{{ $category->id }}">
                                 {{ $category->description }}
                               </label>
                             </div>
                             @endforeach
-                            <div class="radio">
-                              <label>
-                                <input type="radio" name="optionsRadios" id="optionsRadios1" value="other" checked>
-                                Ничего из вышеперечисленного (другое)
-                              </label>
-                            </div>
-
                         </div>
                       </div>
 

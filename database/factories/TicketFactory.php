@@ -35,7 +35,7 @@ $factory->define(App\Ticket::class, function (Faker $faker) {
         }
     }
 
-    $status = $faker->randomElement(['new', 'open', 'awaiting', 'in progress', 'closed', 'solved']);
+    $status = $faker->randomElement(['new', 'in progress', 'awaiting', 'closed']);
     $user_id = $status == 'new' ? null : $faker->randomElement($uidList);
     $category_id = $faker->randomElement($cidList);
     $created_at = $faker->dateTimeThisMonth();
@@ -45,7 +45,7 @@ $factory->define(App\Ticket::class, function (Faker $faker) {
         'raised' => $faker->name,
         'phone' => $faker->e164PhoneNumber,
         'description' => $faker->sentence,
-        'priority' => $faker->randomElement(['low','normal','hight', 'very hight']),
+        'priority' => $faker->randomElement(['low', 'normal', 'high', 'very high']),
         'user_id' => $user_id,
         'category_id' => $category_id,
         'status' => $status,

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Ticket;
 use App\Category;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 
 class TicketController extends Controller
 {
@@ -15,12 +16,9 @@ class TicketController extends Controller
      */
     public function index()
     {
-        $allCategories = Category::all();
-        $actualCategories = $allCategories->reject(function($c) {
-            return $c->archived;
-        });
+        $categories = Category::actual();
 
-        return view('ticket.index', compact('actualCategories'));
+        return view('ticket.index', compact('categories'));
     }
 
     /**
@@ -41,7 +39,16 @@ class TicketController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $categoriesIds = Category::actual()->keys()->toArray();
+
+        $validatedData = $request->validate([
+            'raised' => 'required|string|min:5',
+            'phone' => 'required',
+            'description' => 'required',
+            'category_id' => Rule::in($categoriesIds)
+        ]);
+        
+        Ticket::create($validatedData);
     }
 
     /**
