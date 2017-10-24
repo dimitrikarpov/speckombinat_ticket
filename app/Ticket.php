@@ -52,4 +52,16 @@ class Ticket extends Model
             return $value->status == 'in progress' || $value->status == 'awaiting';
         });
     }
+
+    /**
+     * Get tickets with 'closed' status
+     */
+    public static function getDone()
+    {
+        $all = self::all();
+
+        return $all->filter(function ($value, $key) {
+            return $value->status == 'closed';
+        });
+    }
 }

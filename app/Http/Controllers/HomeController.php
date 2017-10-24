@@ -32,6 +32,7 @@ class HomeController extends Controller
                 $tickets = Ticket::getDoing();
                 break;
             case 'done':
+                $tickets = Ticket::getDone();
                 break;
             default:
                 $tickets = Ticket::getNew();
