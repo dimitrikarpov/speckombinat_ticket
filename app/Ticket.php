@@ -28,4 +28,16 @@ class Ticket extends Model
     {
         return $this->belongsTo('App\Category');
     }
+
+    /**
+     * Get tickets with 'new' attribute
+     */
+    public static function getNew()
+    {
+        $all = self::all();
+
+        return $all->filter(function($value, $key) {
+            return $value->status == 'new';
+        });
+    }
 }

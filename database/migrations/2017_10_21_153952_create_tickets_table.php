@@ -18,7 +18,7 @@ class CreateTicketsTable extends Migration
             $table->string('raised')->comment('person which raised this issue ticket');
             $table->string('phone', 15);
             $table->text('description')->comment('issue descritption');
-            $table->enum('priority', ['low', 'normal', 'high', 'very high'])->default('normal');
+            $table->enum('priority', ['low', 'normal', 'high'])->default('normal');
             $table->integer('user_id')->nullable()->default(null)->comment('issue assigned to');
             $table->integer('category_id')->nullable()->default(null)->comment('issue category');
             $table->enum('status', ['new', 'in progress', 'awaiting', 'closed'])->default('new');
