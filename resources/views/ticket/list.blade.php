@@ -1,12 +1,9 @@
-<div class="panel panel-warning">
-    <div class="panel-heading">Новые заявки</div>
 
-    <div class="panel-body">
-        @if ($newTickets->isEmpty())
+        @if ($tickets->isEmpty())
             <h4>Well, done!</h4>
         @else
             <ul class="list-group">
-            @foreach($newTickets as $ticket)
+            @foreach($tickets as $ticket)
                 <li class="list-group-item">
                      <p><strong>{{ $ticket-> raised }}</strong> / {{ $ticket->phone}}</p>
                      <p><a href="#">{{ $ticket->description }}</a></p>
@@ -28,6 +25,9 @@
                                 @break
                         @endswitch
                      @endif
+                     @if ($ticket->status)
+                        статус: <strong>{{ $ticket->status }}</strong>&nbsp;&nbsp;
+                     @endif
                      @if ($ticket->user_id)
                         выполняет: <strong>{{ $ticket->user->name }}</strong>&nbsp;&nbsp;
                      @endif
@@ -35,5 +35,3 @@
             @endforeach
             </ul>
         @endif
-    </div>
-</div>

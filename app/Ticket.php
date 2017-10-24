@@ -30,7 +30,7 @@ class Ticket extends Model
     }
 
     /**
-     * Get tickets with 'new' attribute
+     * Get tickets with 'new' status
      */
     public static function getNew()
     {
@@ -38,6 +38,18 @@ class Ticket extends Model
 
         return $all->filter(function($value, $key) {
             return $value->status == 'new';
+        });
+    }
+
+    /**
+     * Get tickets with 'in progress' and 'awaiting' status
+     */
+    public static function getDoing()
+    {
+        $all = self::all();
+
+        return $all->filter(function ($value, $key) {
+            return $value->status == 'in progress' || $value->status == 'awaiting';
         });
     }
 }

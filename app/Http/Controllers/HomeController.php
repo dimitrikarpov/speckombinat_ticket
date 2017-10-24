@@ -22,10 +22,21 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($tab = 'todo')
     {
-        $newTickets = Ticket::getNew();
+        switch($tab) {
+            case 'todo':
+                $tickets = Ticket::getNew();
+                break;
+            case 'doing':
+                $tickets = Ticket::getDoing();
+                break;
+            case 'done':
+                break;
+            default:
+                $tickets = Ticket::getNew();
+        }
 
-        return view('home', compact('newTickets'));
+        return view('home', compact(['tickets', 'tab']));
     }
 }

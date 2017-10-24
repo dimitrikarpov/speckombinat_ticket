@@ -17,3 +17,4 @@ Route::post('/new', 'TicketController@store');
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/home/{tab}', 'HomeController@index');
