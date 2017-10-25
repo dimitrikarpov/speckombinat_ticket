@@ -11,6 +11,12 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', 'TicketController@index');
+Route::post('ticket', 'TicketController@store');
+Route::get('ticket/{ticket}/edit', 'TicketController@edit');
+Route::post('ticket/update/{ticket}', 'TicketController@update');
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/home/{tab}', 'HomeController@index');
