@@ -11,15 +11,23 @@ use Illuminate\Validation\Rule;
 class TicketController extends Controller
 {
     /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth')->except(['create', 'store']);
+    }
+
+    /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
     public function index()
     {
-        $categories = Category::actual();
-
-        return view('ticket.index', compact('categories'));
+        //
     }
 
     /**
@@ -29,7 +37,9 @@ class TicketController extends Controller
      */
     public function create()
     {
-        //
+        $categories = Category::actual();
+
+        return view('ticket.index', compact('categories'));
     }
 
     /**
