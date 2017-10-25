@@ -11,7 +11,7 @@
 |
 */
 
-Route::get('/', 'TicketController@index');
+Route::get('/', 'TicketController@create');
 Route::post('ticket', 'TicketController@store');
 Route::get('ticket/{ticket}/edit', 'TicketController@edit');
 Route::post('ticket/update/{ticket}', 'TicketController@update');
