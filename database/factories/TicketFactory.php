@@ -45,7 +45,7 @@ $factory->define(App\Ticket::class, function (Faker $faker) {
         'raised' => $faker->name,
         'phone' => $faker->e164PhoneNumber,
         'description' => $faker->sentence,
-        'priority' => $faker->randomElement(['low', 'normal', 'high', 'very high']),
+        'priority' => $faker->randomElement(['low', 'normal', 'high']),
         'user_id' => $user_id,
         'category_id' => $category_id,
         'status' => $status,

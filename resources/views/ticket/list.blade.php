@@ -1,7 +1,21 @@
 @foreach($tickets as $ticket)
+@php
+    $colors = [
+        'low' => 'info',
+        'normal' => 'success',
+        'high' => 'danger',
+        'new' => 'warning',
+        'in progress' => 'primary',
+        'awaiting' => 'info',
+        'closed' => 'success'
+    ];
+@endphp
 <div class="col-md-4 col-sm-6">
+    @if ($ticket->priority == 'high')
+    <div class="panel panel-danger">
+    @else
     <div class="panel panel-default">
-
+    @endif
         <div class="panel-heading">
             <div class="panel-title">
                 <h4>{{ $ticket-> raised }} <small>{{ $ticket->phone}}</small></h4>
@@ -18,24 +32,13 @@
 
         <div class="panel-footer">
             @if ($ticket->status)
-                статус: <strong>{{ $ticket->status }}</strong>
+                статус: <span class="label label-{{ $colors[$ticket->status] }}">{{ $ticket->status }}</span>
             @endif
 
             &nbsp;&nbsp;
 
             @if ($ticket->priority)
-                приоритет:
-                @switch ($ticket->priority)
-                    @case('low')
-                        <span class="label label-info">{{ $ticket->priority }}</span>
-                        @break
-                    @case('normal')
-                        <span class="label label-success">{{ $ticket->priority }}</span>
-                        @break
-                    @case('high')
-                        <span class="label label-danger">{{ $ticket->priority }}</span>
-                        @break
-                @endswitch
+                приоритет: <span class="label label-{{ $colors[$ticket->priority] }}">{{ $ticket->priority }}</span>
             @endif
 
             &nbsp;&nbsp;
