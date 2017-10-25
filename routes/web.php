@@ -13,6 +13,8 @@
 
 Route::get('/', 'TicketController@index');
 Route::post('ticket', 'TicketController@store');
+Route::get('ticket/{ticket}/edit', 'TicketController@edit');
+Route::post('ticket/update/{ticket}', 'TicketController@update');
 
 Auth::routes();
 

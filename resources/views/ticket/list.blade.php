@@ -23,7 +23,7 @@
         </div>
 
         <div class="panel-body">
-            <p><a href="#">{{ $ticket->description }}</a></p>
+            <p><a href="/ticket/{{ $ticket->id }}/edit">{{ $ticket->description }}</a></p>
 
             @if ($ticket->user_id)
                 <p>выполняет: <strong>{{ $ticket->user->name }}</strong></p>
