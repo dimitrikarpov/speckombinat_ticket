@@ -12,7 +12,7 @@
 */
 
 Route::get('/', 'TicketController@index');
-Route::post('/new', 'TicketController@store');
+Route::post('ticket', 'TicketController@store');
 
 Auth::routes();
 

@@ -1,4 +1,4 @@
-<form class="form-horizontal" method="POST" action="/new">
+<form class="form-horizontal" method="POST" action="/ticket">
     {{ csrf_field() }}
 
     @if ($errors->any())

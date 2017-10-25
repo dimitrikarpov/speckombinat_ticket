@@ -39,7 +39,7 @@ class TicketController extends Controller
      */
     public function store(Request $request)
     {
-        $categoriesIds = Category::actual()->keys()->toArray();
+        $categoriesIds = Category::actual()->pluck('id')->toArray();
 
         $validatedData = $request->validate([
             'raised' => 'required|string|min:5',
@@ -47,8 +47,10 @@ class TicketController extends Controller
             'description' => 'required',
             'category_id' => Rule::in($categoriesIds)
         ]);
-        
+
         Ticket::create($validatedData);
+
+        return back();
     }
 
     /**
