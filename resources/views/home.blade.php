@@ -29,8 +29,11 @@
 <br>
 <div class="container-fluid">
     <div class="row">
-
+        @if ($tickets->isEmpty())
+            <h4>Well, done!</h4>
+        @else
             @include('ticket.list')
+        @endif
     </div>
 </div>
 @endsection
