@@ -37,7 +37,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        //
+        return view('category.create');
     }
 
     /**
@@ -48,7 +48,16 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validatedData = $request->validate([
+            'name' => 'required',
+            'description' => 'required'
+        ]);
+
+        $category = Category::create($validatedData);
+        $category->archived = request('archived') == 'on' ? '1' : '0';
+        $category->save();
+
+        return redirect('category');
     }
 
     /**

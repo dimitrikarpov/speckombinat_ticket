@@ -24,6 +24,9 @@
                     </tr>
                     @endforeach
                 </table>
+                <div class="panel-footer">
+                    <a href="/category/create" class="btn btn-primary btn-sm">Добавить</a>
+                </div>
             </div>
         </div>
     </div>
