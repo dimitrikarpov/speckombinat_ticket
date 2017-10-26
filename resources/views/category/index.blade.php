@@ -12,7 +12,7 @@
                         <th>название</th>
                         <th>описание</th>
                         <th></th>
-                        <th></th>
+                        <th><a href="/category/create" class="btn btn-primary btn-sm">Добавить</a></th>
                     </tr>
                     @foreach($categories as $category)
                     <tr>
@@ -26,9 +26,6 @@
                     </tr>
                     @endforeach
                 </table>
-                <div class="panel-footer">
-                    <a href="/category/create" class="btn btn-primary btn-sm">Добавить</a>
-                </div>
             </div>
         </div>
     </div>
