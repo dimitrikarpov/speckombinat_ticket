@@ -20,6 +20,7 @@ Route::get('category/{category}/edit', 'CategoryController@edit');
 Route::post('category/{category}/update', 'CategoryController@update');
 Route::get('category/create', 'CategoryController@create');
 Route::post('category/store', 'CategoryController@store');
+Route::get('category/{category}/destroy', 'CategoryController@destroy');
 
 Auth::routes();
 

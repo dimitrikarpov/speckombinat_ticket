@@ -19,11 +19,15 @@ class CreateTicketsTable extends Migration
             $table->string('phone', 15);
             $table->text('description')->comment('issue descritption');
             $table->enum('priority', ['low', 'normal', 'high'])->default('normal');
-            $table->integer('user_id')->nullable()->default(null)->comment('issue assigned to');
-            $table->integer('category_id')->nullable()->default(null)->comment('issue category');
+            $table->integer('user_id')->unsigned()->nullable()->default(null);
+            $table->integer('category_id')->unsigned()->nullable()->default(null);
             $table->enum('status', ['new', 'in progress', 'awaiting', 'closed'])->default('new');
             $table->text('notes')->nullable()->default(null);
             $table->timestamps();
+        });
+
+        Schema::table('tickets', function($table) {
+            $table->foreign('category_id')->references('id')->on('categories')->onDelete('set null');
         });
     }
 
