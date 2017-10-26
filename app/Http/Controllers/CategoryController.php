@@ -4,9 +4,20 @@ namespace App\Http\Controllers;
 
 use App\Category;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 
 class CategoryController extends Controller
 {
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -14,7 +25,9 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        //
+        $categories = Category::all();
+
+        return view('category.index', compact('categories'));
     }
 
     /**
@@ -24,7 +37,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        //
+        return view('category.create');
     }
 
     /**
@@ -35,7 +48,16 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validatedData = $request->validate([
+            'name' => 'required',
+            'description' => 'required'
+        ]);
+
+        $category = Category::create($validatedData);
+        $category->archived = request('archived') == 'on' ? '1' : '0';
+        $category->save();
+
+        return redirect('category');
     }
 
     /**
@@ -57,7 +79,7 @@ class CategoryController extends Controller
      */
     public function edit(Category $category)
     {
-        //
+        return view('category.edit', compact('category'));
     }
 
     /**
@@ -69,7 +91,16 @@ class CategoryController extends Controller
      */
     public function update(Request $request, Category $category)
     {
-        //
+        $validatedData = $request->validate([
+            'name' => 'required',
+            'description' => 'required'
+        ]);
+
+        $category->fill($validatedData);
+        $category->archived = request('archived') == 'on' ? '1' : '0';
+        $category->save();
+
+        return redirect('category');
     }
 
     /**
@@ -80,6 +111,8 @@ class CategoryController extends Controller
      */
     public function destroy(Category $category)
     {
-        //
+        Category::destroy($category->id);
+
+        return redirect('category');
     }
 }
