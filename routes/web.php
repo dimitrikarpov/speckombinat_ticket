@@ -24,6 +24,8 @@ Route::get('category/{category}/destroy', 'CategoryController@destroy');
 Route::get('user', 'UserController@index');
 Route::get('user/{user}/edit', 'UserController@edit');
 Route::post('user/{user}/update', 'UserController@update');
+Route::get('user/create', 'UserController@create');
+Route::post('user/store', 'UserController@store');
 
 Auth::routes();
 
