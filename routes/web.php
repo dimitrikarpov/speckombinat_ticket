@@ -16,6 +16,8 @@ Route::post('ticket', 'TicketController@store');
 Route::get('ticket/{ticket}/edit', 'TicketController@edit');
 Route::post('ticket/update/{ticket}', 'TicketController@update');
 Route::get('category', 'CategoryController@index');
+Route::get('category/{category}/edit', 'CategoryController@edit');
+Route::post('category/{category}/update', 'CategoryController@update');
 
 Auth::routes();
 
