@@ -28,6 +28,7 @@ class CreateTicketsTable extends Migration
 
         Schema::table('tickets', function($table) {
             $table->foreign('category_id')->references('id')->on('categories')->onDelete('set null');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('set null');
         });
     }
 
