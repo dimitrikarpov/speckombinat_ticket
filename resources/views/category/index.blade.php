@@ -12,11 +12,13 @@
                         <th>название</th>
                         <th>описание</th>
                         <th></th>
+                        <th></th>
                     </tr>
                     @foreach($categories as $category)
                     <tr>
                         <td>{{ $category->name }}</td>
                         <td>{{ $category->description }}</td>
+                        <td>{{ $category->archived == 1 ? 'X': '' }}</td>
                         <td>
                             <a href="/category/{{ $category->id }}/edit" class="btn btn-default btn-xs">edit</a>&nbsp;&nbsp;
                             <a href="/category/{{ $category->id }}/delete" class="btn btn-danger btn-xs">delete</a>
