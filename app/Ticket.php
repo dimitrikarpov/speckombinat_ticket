@@ -64,4 +64,22 @@ class Ticket extends Model
             return $value->status == 'closed';
         });
     }
+
+    public static function fetchByParams(array $params = [])
+    {
+        $filter = Ticket::where('status', 'closed');
+
+        $filter->whereDate('created_at', '>', $params['date_from']);
+        $filter->whereDate('updated_at', '<', $params['date_to']);
+
+        if ($params['category_id']) {
+            $filter->where('category_id', $params['category_id']);
+        }
+
+        if ($params['user_id']) {
+            $filter->where('user_id', $params['user_id']);
+        }
+
+        return $filter->get();
+    }
 }
