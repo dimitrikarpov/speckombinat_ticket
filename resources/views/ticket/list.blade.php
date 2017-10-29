@@ -1,4 +1,3 @@
-@foreach($tickets as $ticket)
 @php
     $colors = [
         'low' => 'info',
@@ -10,6 +9,7 @@
         'closed' => 'success'
     ];
 @endphp
+@foreach($tickets as $ticket)
 <div class="col-md-4 col-sm-6">
     @if ($ticket->priority == 'high')
     <div class="panel panel-danger">
