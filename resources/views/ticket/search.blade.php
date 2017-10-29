@@ -1,19 +1,25 @@
 @extends('layouts.app')
 
 @section('content')
+@php
+    $date_from = app('request')->input('date_from');
+    $date_to = app('request')->input('date_to');
+    $category_id = app('request')->input('category_id');
+    $user_id = app('request')->input('user_id');
+@endphp
 <div class="container">
 
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-default">
                 <div class="panel-heading">
-                        from: {{ $params['date_from']}}
-                        to: {{ $params['date_to']}}
-                        @isset($params['category_id'])
-                            category: <span class="label label-default">{{ $categories->find($params['category_id'])->name }}</span>
+                        from: {{ $date_from }}
+                        to: {{ $date_to }}
+                        @isset($category_id)
+                            category: <span class="label label-default">{{ $categories->find($category_id)->name }}</span>
                         @endisset
-                        @isset($params['user_id'])
-                            выполняет: <span class="label label-default">{{ $users->find($params['user_id'])->name }}</span>
+                        @isset($user_id)
+                            выполняет: <span class="label label-default">{{ $users->find($user_id)->name }}</span>
                         @endisset
                     <button class="btn btn-primary pull-right btn-xs" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false">Search</button></div>
                 <div class="collapse" id="collapseExample">
@@ -23,13 +29,13 @@
                             <div class="form-group">
                                 <label for="inputDateFrom" class="col-sm-2 control-label">date from</label>
                                 <div class="col-sm-10">
-                                    <input type="date" class="form-control" id="inputDateFrom" name="date_from" value="{{ $params['date_from']}}">
+                                    <input type="date" class="form-control" id="inputDateFrom" name="date_from" value="{{ $date_from }}">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label for="inputDateTo" class="col-sm-2 control-label">date to</label>
                                 <div class="col-sm-10">
-                                    <input type="date" class="form-control" id="inputDateTo" name="date_to" value="{{ $params['date_to'] }}">
+                                    <input type="date" class="form-control" id="inputDateTo" name="date_to" value="{{ $date_to }}">
                                 </div>
                             </div>
                             <div class="form-group">
@@ -38,7 +44,7 @@
                                     <select class="form-control" id="selectCategory" name="category_id">
                                         <option></option>
                                         @foreach($categories as $category)
-                                        <option value="{{ $category->id}}" {{ $params['category_id'] == $category->id ? 'selected':''}}>{{ $category->name }}</option>
+                                        <option value="{{ $category->id}}" {{ $category_id == $category->id ? 'selected':''}}>{{ $category->name }}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -49,7 +55,7 @@
                                     <select class="form-control" id="selectUser" name="user_id">
                                         <option></option>
                                         @foreach($users as $user)
-                                        <option value="{{ $user->id }}" {{ $params['user_id'] == $user->id ? 'selected':''}}>{{ $user->name }}</option>
+                                        <option value="{{ $user->id }}" {{ $user_id == $user->id ? 'selected':''}}>{{ $user->name }}</option>
                                         @endforeach
                                     </select>
                                 </div>

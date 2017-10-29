@@ -7,7 +7,6 @@ use App\Category;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
-use Carbon\Carbon;
 
 class TicketController extends Controller
 {
@@ -36,27 +35,16 @@ class TicketController extends Controller
 
         $request = request();
 
-        //validate params
-        $validatedData = $request->validate([
+        $params = $request->validate([
             'date_from' => 'date',
             'date_to' => 'date',
             'category_id' => Rule::in($categoriesIds),
             'user_id' => Rule::in($usersIds)
         ]);
 
-        // default params
-        $defaultParams = collect([
-            'date_from' => Carbon::now('Europe/Kiev')->toDateString(),
-            'date_to' => Carbon::now('Europe/Kiev')->subDays(14)->toDateString(),
-            'category_id' => null,
-            'user_id' => null
-        ]);
-
-        $params = $defaultParams->merge($validatedData)->toArray();
-        
         $tickets = Ticket::fetchByParams($params);
 
-        return view('ticket.search', compact('categories', 'users', 'params', 'tickets'));
+        return view('ticket.search', compact('categories', 'users', 'tickets'));
     }
 
     public function redirector()
