@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Carbon\Carbon;
 
 class Ticket extends Model
 {
@@ -63,5 +64,33 @@ class Ticket extends Model
         return $all->filter(function ($value, $key) {
             return $value->status == 'closed';
         });
+    }
+
+    public static function fetchByParams(array $params = [])
+    {
+        // default params
+        $defaultParams = collect([
+            'date_from' => Carbon::now('Europe/Kiev')->toDateString(),
+            'date_to' => Carbon::now('Europe/Kiev')->subDays(14)->toDateString(),
+            'category_id' => null,
+            'user_id' => null
+        ]);
+
+        $params = $defaultParams->merge($params)->toArray();
+
+        $filter = Ticket::where('status', 'closed');
+
+        $filter->whereDate('created_at', '>', $params['date_from']);
+        $filter->whereDate('updated_at', '<', $params['date_to']);
+
+        if ($params['category_id']) {
+            $filter->where('category_id', $params['category_id']);
+        }
+
+        if ($params['user_id']) {
+            $filter->where('user_id', $params['user_id']);
+        }
+
+        return $filter->get();
     }
 }

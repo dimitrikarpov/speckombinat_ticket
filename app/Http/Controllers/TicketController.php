@@ -27,7 +27,47 @@ class TicketController extends Controller
      */
     public function index()
     {
-        //
+        $categories = Category::actual();
+        $users = User::all();
+
+        $categoriesIds = $categories->pluck('id')->toArray();
+        $usersIds = $users->pluck('id')->toArray();
+
+        $request = request();
+
+        $params = $request->validate([
+            'date_from' => 'date',
+            'date_to' => 'date',
+            'category_id' => Rule::in($categoriesIds),
+            'user_id' => Rule::in($usersIds)
+        ]);
+
+        $tickets = Ticket::fetchByParams($params);
+
+        return view('ticket.search', compact('categories', 'users', 'tickets'));
+    }
+
+    public function redirector()
+    {
+        $params = [];
+
+        if (request()->input('date_from')) {
+            $params['date_from'] = request()->input('date_from');
+        }
+
+        if (request()->input('date_to')) {
+            $params['date_to'] = request()->input('date_to');
+        }
+
+        if (request()->input('category_id')) {
+            $params['category_id'] = request()->input('category_id');
+        }
+
+        if (request()->input('user_id')) {
+            $params['user_id'] = request()->input('user_id');
+        }
+
+        return redirect()->route('tickets', $params);
     }
 
     /**
