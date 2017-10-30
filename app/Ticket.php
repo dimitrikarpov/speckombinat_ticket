@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
 
 class Ticket extends Model
 {
@@ -63,6 +64,16 @@ class Ticket extends Model
 
         return $all->filter(function ($value, $key) {
             return $value->status == 'closed';
+        });
+    }
+
+    public static function getCurrentUserActive()
+    {
+        $all = self::all();
+        $uid = Auth::id();
+
+        return $all->filter(function ($value, $key) use ($uid) {
+            return $value->status !== 'closed' && $value->user_id == $uid;
         });
     }
 

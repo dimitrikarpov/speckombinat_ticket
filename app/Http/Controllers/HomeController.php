@@ -40,4 +40,16 @@ class HomeController extends Controller
 
         return view('home', compact(['tickets', 'tab']));
     }
+
+    /**
+     * Show the current user dashboard
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function dashboard()
+    {
+        $tickets = Ticket::getCurrentUserActive();
+
+        return view('dashboard', compact('tickets'));
+    }
 }

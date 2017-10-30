@@ -33,5 +33,6 @@ Route::get('user/{user}/destroy', 'UserController@destroy');
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
-Route::get('/home/{tab}', 'HomeController@index');
+Route::get('home', 'HomeController@index')->name('home');
+Route::get('home/{tab}', 'HomeController@index');
+Route::get('dashboard', 'HomeController@dashboard');
