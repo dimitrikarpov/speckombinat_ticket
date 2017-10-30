@@ -82,6 +82,14 @@ class TicketController extends Controller
         return view('ticket.index', compact('categories'));
     }
 
+    public function add()
+    {
+        $categories = Category::actual();
+        $users = User::all();
+
+        return view('ticket.add', compact('categories', 'users'));
+    }
+
     /**
      * Store a newly created resource in storage.
      *
@@ -102,6 +110,32 @@ class TicketController extends Controller
         Ticket::create($validatedData);
 
         return back();
+    }
+
+    public function store2(Request $request)
+    {
+        $categoriesIds = Category::actual()->pluck('id')->toArray();
+        $usersIds = User::all()->pluck('id')->toArray();
+
+        $validatedData = $request->validate([
+            'raised' => 'required|string|min:5',
+            'phone' => 'required',
+            'description' => 'required',
+            'category_id' => Rule::in($categoriesIds),
+            'status' => Rule::in(['new', 'in progress', 'awaiting', 'closed']),
+            'priority' => Rule::in(['low', 'normal', 'high']),
+            'user_id' => Rule::in($usersIds),
+            'notes' => 'min:10'
+        ]);
+
+        $ticket = Ticket::create($validatedData);
+        $ticket->status = $validatedData['status'];
+        $ticket->priority = $validatedData['priority'];
+        $ticket->user_id = $validatedData['user_id'];
+        $ticket->notes = $validatedData['notes'];
+        $ticket->save();
+
+        return redirect('home');
     }
 
     /**
