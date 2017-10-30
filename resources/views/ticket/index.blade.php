@@ -7,7 +7,7 @@
             <div class="panel panel-default">
                 <div class="panel-heading">Новая заявка</div>
                 <div class="panel-body">
-                    @include('ticket.form')
+                    @include('ticket.form.guestadd')
                 </div>
             </div>
         </div>

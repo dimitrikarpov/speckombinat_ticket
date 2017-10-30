@@ -79,6 +79,7 @@ class TicketController extends Controller
     {
         $categories = Category::actual();
 
+        //return view('ticket.index', compact('categories'));
         return view('ticket.index', compact('categories'));
     }
 
