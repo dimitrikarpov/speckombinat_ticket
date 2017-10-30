@@ -14,6 +14,8 @@
 Route::get('/', 'TicketController@create');
 Route::get('tickets', 'TicketController@index')->name('tickets');
 Route::post('filter', 'TicketController@redirector');
+Route::get('ticket/add', 'TicketController@add'); // need to refactor
+Route::post('ticket/store2', 'TicketController@store2'); // need to refactor
 Route::get('ticket/{ticket}', 'TicketController@show');
 Route::post('ticket/store', 'TicketController@store');
 Route::get('ticket/{ticket}/edit', 'TicketController@edit');
@@ -33,5 +35,6 @@ Route::get('user/{user}/destroy', 'UserController@destroy');
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
-Route::get('/home/{tab}', 'HomeController@index');
+Route::get('home', 'HomeController@index')->name('home');
+Route::get('home/{tab}', 'HomeController@index');
+Route::get('dashboard', 'HomeController@dashboard');
