@@ -7,7 +7,7 @@
             <div class="panel panel-default">
                 <div class="panel-heading">Редактировать заявку</div>
                 <div class="panel-body">
-                    @include('ticket.form.useredit')
+                    @include('ticket.form.edit')
                 </div>
             </div>
         </div>

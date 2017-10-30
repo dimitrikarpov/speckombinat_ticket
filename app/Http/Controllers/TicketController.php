@@ -88,7 +88,7 @@ class TicketController extends Controller
         $categories = Category::actual();
         $users = User::all();
 
-        return view('ticket.add', compact('categories', 'users'));
+        return view('ticket.create', compact('categories', 'users'));
     }
 
     /**
@@ -98,22 +98,6 @@ class TicketController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
-        $categoriesIds = Category::actual()->pluck('id')->toArray();
-
-        $validatedData = $request->validate([
-            'raised' => 'required|string|min:5',
-            'phone' => 'required',
-            'description' => 'required',
-            'category_id' => Rule::in($categoriesIds)
-        ]);
-
-        Ticket::create($validatedData);
-
-        return back();
-    }
-
-    public function store2(Request $request)
     {
         $categoriesIds = Category::actual()->pluck('id')->toArray();
         $usersIds = User::all()->pluck('id')->toArray();
@@ -130,13 +114,14 @@ class TicketController extends Controller
         ]);
 
         $ticket = Ticket::create($validatedData);
-        $ticket->status = $validatedData['status'];
-        $ticket->priority = $validatedData['priority'];
-        $ticket->user_id = $validatedData['user_id'];
-        $ticket->notes = $validatedData['notes'];
+
+        $ticket->status = $validatedData['status'] ?? 'new';
+        $ticket->priority = $validatedData['priority'] ?? 'normal';
+        $ticket->user_id = $validatedData['user_id'] ?? null;
+        $ticket->notes = $validatedData['notes'] ?? null;
         $ticket->save();
 
-        return redirect('home');
+        return back();
     }
 
     /**

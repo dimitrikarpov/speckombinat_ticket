@@ -1,7 +1,7 @@
 @component('ticket.form.layout')
 
 @slot('action')
-    /ticket/update/{{ $ticket->id }}
+    /ticket/{{ $ticket->id }}/update
 @endslot
 
 <div class="form-group">
@@ -26,15 +26,13 @@
 </div>
 
 <div class="form-group">
-  <div class="col-sm-offset-2 col-sm-10">
+  <label for="selectCategory" class="col-sm-2 control-label">Категория</label>
+  <div class="col-sm-10">
+      <select class="form-control" id="selectCategory" name="category_id">
       @foreach($categories as $category)
-      <div class="radio">
-        <label>
-          <input type="radio" name="category_id" value="{{ $category->id }}"{{ $ticket->category_id == $category->id ? ' checked' : ''}}>
-          {{ $category->description }}
-        </label>
-      </div>
+        <option value="{{ $category->id }}" {{ $ticket->category_id == $category->id ? 'selected':'' }}>{{ $category->name }}</option>
       @endforeach
+    </select>
   </div>
 </div>
 

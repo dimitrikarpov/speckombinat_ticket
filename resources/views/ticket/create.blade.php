@@ -7,7 +7,7 @@
             <div class="panel panel-default">
                 <div class="panel-heading">Добавить заявку</div>
                 <div class="panel-body">
-                    @include('ticket.form.add')
+                    @include('ticket.form.create')
                 </div>
             </div>
         </div>

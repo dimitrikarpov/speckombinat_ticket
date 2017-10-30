@@ -41,7 +41,7 @@
     <div class="form-group">
         <label for="inputNotes" class="col-sm-2 control-label">Заметки</label>
         <div class="col-sm-10">
-          <textarea class="form-control" id="inputNotes" placeholder="Заметки" name="notes" required rows="4" cols="80"></textarea>
+          <textarea class="form-control" id="inputNotes" placeholder="Заметки" name="notes" rows="4" cols="80"></textarea>
         </div>
     </div>
 
