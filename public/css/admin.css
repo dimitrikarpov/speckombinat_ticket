@@ -1,0 +1,13 @@
+.navbar-brand>img {
+    margin-top: -5px;
+    width: 25px;
+    display: inline;
+}
+
+.navbar-brand>p {
+    display: inline;
+}
+
+.navbar-brand>p>span {
+    color: #0d8bea;
+}
