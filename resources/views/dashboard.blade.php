@@ -1,26 +1,15 @@
-@extends('layouts.app')
+@extends('layouts.admin')
 
 @section('content')
 
 @includeWhen(session('status'), 'layouts.notification')
+<div class="row">
+    <h1 class="page-header">Мои заявки</h1>
 
-<div class="container-fluid">
-    <div class="row">
-        <div class="col-md-1">
-            <a href="/ticket/add" class="btn btn-default">Новая</a>
-        </div>
-    </div>
-</div>
-<br>
-<div class="container-fluid">
-    <div class="row">
-
-        @forelse ($tickets as $ticket)
-            @include('ticket.single')
-        @empty
-            <h4>Well, done!</h4>
-        @endforelse
-
-    </div>
+    @forelse ($tickets as $ticket)
+        @include('ticket.single')
+    @empty
+        <h4>Well, done!</h4>
+    @endforelse
 </div>
 @endsection
