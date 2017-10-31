@@ -9,7 +9,6 @@
 @endphp
 
     <div class="row">
-        <h1 class="page-header">Фильтр по выполненным</h1>
         <div class="col-md-10 col-md-offset-1">
             <div class="panel panel-default">
                 <div class="panel-heading">

@@ -25,7 +25,7 @@
     </ul>
 
     <br><br>
-    
+
     <div class="row">
 
         @forelse ($tickets as $ticket)

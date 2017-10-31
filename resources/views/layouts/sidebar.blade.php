@@ -1,18 +1,10 @@
 <ul class="nav nav-sidebar">
-    <li class="active"><a href="#">Overview <span class="sr-only">(current)</span></a></li>
-    <li><a href="#">Reports</a></li>
-    <li><a href="#">Analytics</a></li>
-    <li><a href="#">Export</a></li>
+    <li {{ Route::current()->uri == 'home/{tab}' || Route::current()->uri == 'home' ? 'class=active':'' }}><a href="/home">Заявки</a></li>
+    <li {{ Route::current()->uri == 'dashboard' ? 'class=active':''}}><a href="/dashboard">Мои</a></li>
+    <li {{ Route::current()->uri == 'ticket/add' ? 'class=active':''}}><a href="/ticket/add">Создать</a></li>
+    <li {{ Route::current()->uri == 'tickets' ? 'class=active':''}}><a href="/tickets">Архив</a></li>
 </ul>
 <ul class="nav nav-sidebar">
-    <li><a href="">Nav item</a></li>
-    <li><a href="">Nav item again</a></li>
-    <li><a href="">One more nav</a></li>
-    <li><a href="">Another nav item</a></li>
-    <li><a href="">More navigation</a></li>
-</ul>
-    <ul class="nav nav-sidebar">
-    <li><a href="">Nav item again</a></li>
-    <li><a href="">One more nav</a></li>
-    <li><a href="">Another nav item</a></li>
+    <li {{ Route::current()->uri == 'category' ? 'class=active':''}}><a href="/category">Категории</a></li>
+    <li {{ Route::current()->uri == 'user' ? 'class=active':''}}><a href="/user">Пользователи</a></li>
 </ul>
