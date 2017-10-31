@@ -10,9 +10,6 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::get('/theme', function () {
-    return view('layouts.admin');
-});
 
 Route::get('/', 'TicketController@create');
 Route::get('tickets', 'TicketController@index')->name('tickets');
