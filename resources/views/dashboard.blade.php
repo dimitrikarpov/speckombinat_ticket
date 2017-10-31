@@ -1,6 +1,9 @@
 @extends('layouts.app')
 
 @section('content')
+
+@includeWhen(session('status'), 'layouts.notification')
+
 <div class="container-fluid">
     <div class="row">
         <div class="col-md-1">
@@ -17,7 +20,7 @@
         @empty
             <h4>Well, done!</h4>
         @endforelse
-        
+
     </div>
 </div>
 @endsection

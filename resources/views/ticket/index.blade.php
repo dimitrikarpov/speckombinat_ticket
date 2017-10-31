@@ -2,6 +2,8 @@
 
 @section('content')
 
+    @includeWhen(session('status'), 'layouts.notification')
+
     @include('ticket.form.create')
-    
+
 @endsection

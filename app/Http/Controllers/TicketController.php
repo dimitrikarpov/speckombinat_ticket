@@ -8,6 +8,7 @@ use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
 
 class TicketController extends Controller
 {
@@ -109,7 +110,11 @@ class TicketController extends Controller
         $ticket->notes = $validatedData['notes'] ?? null;
         $ticket->save();
 
-        return back();
+        if (Auth::check()) {
+            return redirect('dashboard')->with('status', 'Ticket added');
+        } else {
+            return redirect('/')->with('status', 'Заявка добавлена!');
+        }
     }
 
     /**
