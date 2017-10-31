@@ -167,7 +167,7 @@ class TicketController extends Controller
         $ticket->notes = $validatedData['notes'];
         $ticket->save();
 
-        return redirect('home');
+        return redirect('home')->with('status', 'Ticket updated!');
     }
 
     /**
