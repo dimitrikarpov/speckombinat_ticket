@@ -7,6 +7,7 @@ use App\Category;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
+use Carbon\Carbon;
 
 class TicketController extends Controller
 {
@@ -50,22 +51,10 @@ class TicketController extends Controller
     public function redirector()
     {
         $params = [];
-
-        if (request()->input('date_from')) {
-            $params['date_from'] = request()->input('date_from');
-        }
-
-        if (request()->input('date_to')) {
-            $params['date_to'] = request()->input('date_to');
-        }
-
-        if (request()->input('category_id')) {
-            $params['category_id'] = request()->input('category_id');
-        }
-
-        if (request()->input('user_id')) {
-            $params['user_id'] = request()->input('user_id');
-        }
+        $params['date_from'] = request()->input('date_from') ?? Carbon::now('Europe/Kiev')->subDays(14)->toDateString();
+        $params['date_to'] = request()->input('date_to') ?? Carbon::now('Europe/Kiev')->toDateString();
+        $params['category_id'] = request()->input('category_id') ?? null;
+        $params['user_id'] = request()->input('user_id') ?? null;
 
         return redirect()->route('tickets', $params);
     }
@@ -79,7 +68,6 @@ class TicketController extends Controller
     {
         $categories = Category::actual();
 
-        //return view('ticket.index', compact('categories'));
         return view('ticket.index', compact('categories'));
     }
 
