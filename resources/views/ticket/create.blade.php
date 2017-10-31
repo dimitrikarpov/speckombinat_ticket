@@ -3,5 +3,5 @@
 @section('content')
 
     @include('ticket.form.create')
-    
+
 @endsection

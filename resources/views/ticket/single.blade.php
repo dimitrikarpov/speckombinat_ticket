@@ -9,12 +9,12 @@
         'closed' => 'success'
     ];
 @endphp
-@foreach($tickets as $ticket)
+
 <div class="col-md-4 col-sm-6">
     @if ($ticket->priority == 'high')
-    <div class="panel panel-danger">
+        <div class="panel panel-danger">
     @else
-    <div class="panel panel-default">
+        <div class="panel panel-default">
     @endif
         <div class="panel-heading">
             <div class="panel-title">
@@ -25,29 +25,28 @@
         <div class="panel-body">
             <p><a href="/ticket/{{ $ticket->id }}/edit">{{ $ticket->description }}</a></p>
 
-            @if ($ticket->user_id)
+            @isset($ticket->user_id)
                 <p>выполняет: <strong>{{ $ticket->user->name }}</strong></p>
-            @endif
+            @endisset
         </div><!-- panel-body -->
 
         <div class="panel-footer">
-            @if ($ticket->status)
+            @isset($ticket->status)
                 статус: <span class="label label-{{ $colors[$ticket->status] }}">{{ $ticket->status }}</span>
-            @endif
+            @endisset
 
             &nbsp;&nbsp;
 
-            @if ($ticket->priority)
+            @isset($ticket->priority)
                 приоритет: <span class="label label-{{ $colors[$ticket->priority] }}">{{ $ticket->priority }}</span>
-            @endif
+            @endisset
 
             &nbsp;&nbsp;
 
-            @if ($ticket->category_id)
+            @isset($ticket->category_id)
                 категория: <span class="label label-default">{{ $ticket->category->name }}</span>
-            @endif
+            @endisset
         </div>
 
     </div><!-- panel -->
 </div><!-- col -->
-@endforeach

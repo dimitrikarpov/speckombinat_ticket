@@ -13,19 +13,20 @@
 
 Route::get('/', 'TicketController@create');
 Route::get('tickets', 'TicketController@index')->name('tickets');
-Route::post('filter', 'TicketController@redirector');
-Route::get('ticket/add', 'TicketController@add'); // need to refactor
-Route::post('ticket/store2', 'TicketController@store2'); // need to refactor
+Route::post('redirector', 'TicketController@redirector');
+Route::get('ticket/add', 'TicketController@add');
 Route::get('ticket/{ticket}', 'TicketController@show');
 Route::post('ticket/store', 'TicketController@store');
 Route::get('ticket/{ticket}/edit', 'TicketController@edit');
-Route::post('ticket/update/{ticket}', 'TicketController@update');
+Route::post('ticket/{ticket}/update', 'TicketController@update');
+
 Route::get('category', 'CategoryController@index');
 Route::get('category/{category}/edit', 'CategoryController@edit');
 Route::post('category/{category}/update', 'CategoryController@update');
 Route::get('category/create', 'CategoryController@create');
 Route::post('category/store', 'CategoryController@store');
 Route::get('category/{category}/destroy', 'CategoryController@destroy');
+
 Route::get('user', 'UserController@index');
 Route::get('user/{user}/edit', 'UserController@edit');
 Route::post('user/{user}/update', 'UserController@update');

@@ -4,18 +4,20 @@
 <div class="container-fluid">
     <div class="row">
         <div class="col-md-1">
-            <a href="#" class="btn btn-default">Новая</a>
+            <a href="/ticket/add" class="btn btn-default">Новая</a>
         </div>
     </div>
 </div>
 <br>
 <div class="container-fluid">
     <div class="row">
-        @if ($tickets->isEmpty())
+
+        @forelse ($tickets as $ticket)
+            @include('ticket.single')
+        @empty
             <h4>Well, done!</h4>
-        @else
-            @include('ticket.list')
-        @endif
+        @endforelse
+        
     </div>
 </div>
 @endsection

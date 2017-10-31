@@ -79,15 +79,10 @@ class Ticket extends Model
 
     public static function fetchByParams(array $params = [])
     {
-        // default params
-        $defaultParams = collect([
-            'date_from' => Carbon::now('Europe/Kiev')->toDateString(),
-            'date_to' => Carbon::now('Europe/Kiev')->subDays(14)->toDateString(),
-            'category_id' => null,
-            'user_id' => null
-        ]);
-
-        $params = $defaultParams->merge($params)->toArray();
+        $params['date_from'] = $params['date_from'] ?? Carbon::now('Europe/Kiev')->subDays(14)->toDateString();
+        $params['date_to'] = $params['date_to'] ?? Carbon::now('Europe/Kiev')->toDateString();
+        $params['category_id'] = $params['category_id'] ?? null;
+        $params['user_id'] = $params['user_id'] ?? null;
 
         $filter = Ticket::where('status', 'closed');
 

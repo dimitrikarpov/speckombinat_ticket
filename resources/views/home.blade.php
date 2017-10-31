@@ -29,11 +29,13 @@
 <br>
 <div class="container-fluid">
     <div class="row">
-        @if ($tickets->isEmpty())
+
+        @forelse ($tickets as $ticket)
+            @include('ticket.single')
+        @empty
             <h4>Well, done!</h4>
-        @else
-            @include('ticket.list')
-        @endif
+        @endforelse
+        
     </div>
 </div>
 @endsection
