@@ -13,7 +13,7 @@
 
 Route::get('/', 'TicketController@create');
 Route::get('tickets', 'TicketController@index')->name('tickets');
-Route::post('filter', 'TicketController@redirector');
+Route::post('redirector', 'TicketController@redirector');
 Route::get('ticket/add', 'TicketController@add');
 Route::get('ticket/{ticket}', 'TicketController@show');
 Route::post('ticket/store', 'TicketController@store');

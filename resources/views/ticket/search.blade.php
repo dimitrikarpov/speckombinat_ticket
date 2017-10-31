@@ -24,7 +24,7 @@
                     <button class="btn btn-primary pull-right btn-xs" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false">Search</button></div>
                 <div class="collapse" id="collapseExample">
                     <div class="panel-body">
-                        <form class="form-horizontal" method="POST" action="/filter">
+                        <form class="form-horizontal" method="POST" action="/redirector">
                             {{ csrf_field() }}
                             <div class="form-group">
                                 <label for="inputDateFrom" class="col-sm-2 control-label">date from</label>
