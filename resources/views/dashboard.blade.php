@@ -4,7 +4,7 @@
 <div class="container-fluid">
     <div class="row">
         <div class="col-md-1">
-            <a href="#" class="btn btn-default">Новая</a>
+            <a href="/ticket/add" class="btn btn-default">Новая</a>
         </div>
     </div>
 </div>

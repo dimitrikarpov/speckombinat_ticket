@@ -1,8 +1,4 @@
-@component('ticket.form.layout')
-
-@slot('action')
-    /ticket/{{ $ticket->id }}/update
-@endslot
+@component('ticket.form.layout', ['action' => "/ticket/{{ $ticket->id }}/update", 'formTitle' => 'Редактировать заявку'])
 
 <div class="form-group">
   <label for="inputName" class="col-sm-2 control-label">Имя</label>
