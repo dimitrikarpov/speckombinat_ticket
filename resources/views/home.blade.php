@@ -1,6 +1,9 @@
 @extends('layouts.app')
 
 @section('content')
+
+@includeWhen(session('status'), 'layouts.notification')
+
 <div class="container">
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
@@ -35,7 +38,7 @@
         @empty
             <h4>Well, done!</h4>
         @endforelse
-        
+
     </div>
 </div>
 @endsection
