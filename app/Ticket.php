@@ -42,25 +42,17 @@ class Ticket extends Model
     /**
      * Get tickets with 'in progress' and 'awaiting' status
      */
-    public static function getDoing()
+    public function scopeDoing($query)
     {
-        $all = self::all();
-
-        return $all->filter(function ($value, $key) {
-            return $value->status == 'in progress' || $value->status == 'awaiting';
-        });
+        return $query->whereIn('status', ['in progress', 'awaiting']);
     }
 
     /**
      * Get tickets with 'closed' status
      */
-    public static function getDone()
+    public function scopeDone($query)
     {
-        $all = self::all();
-
-        return $all->filter(function ($value, $key) {
-            return $value->status == 'closed';
-        });
+        return $query->where('status', 'closed');
     }
 
     public static function getCurrentUserActive()

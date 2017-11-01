@@ -29,10 +29,10 @@ class HomeController extends Controller
                 $tickets = Ticket::todo()->get();
                 break;
             case 'doing':
-                $tickets = Ticket::getDoing();
+                $tickets = Ticket::doing()->get();
                 break;
             case 'done':
-                $tickets = Ticket::getDone();
+                $tickets = Ticket::done()->get();
                 break;
             default:
                 $tickets = Ticket::todo()->get();
