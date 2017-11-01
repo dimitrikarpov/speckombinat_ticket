@@ -6,5 +6,5 @@
 </ul>
 <ul class="nav nav-sidebar">
     <li {{ Route::current()->uri == 'categories' ? 'class=active':''}}><a href="/category">Категории</a></li>
-    <li {{ Route::current()->uri == 'user' ? 'class=active':''}}><a href="/user">Пользователи</a></li>
+    <li {{ Route::current()->uri == 'users' ? 'class=active':''}}><a href="/user">Пользователи</a></li>
 </ul>
