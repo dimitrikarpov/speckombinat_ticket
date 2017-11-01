@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use App\Ticket;
 
 class HomeController extends Controller
@@ -48,7 +49,7 @@ class HomeController extends Controller
      */
     public function dashboard()
     {
-        $tickets = Ticket::getCurrentUserActive();
+        $tickets = Ticket::ofUser(Auth::user())->get();
 
         return view('dashboard', compact('tickets'));
     }

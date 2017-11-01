@@ -55,14 +55,12 @@ class Ticket extends Model
         return $query->where('status', 'closed');
     }
 
-    public static function getCurrentUserActive()
+    /**
+     * Scope a query with given user where status is not 'closed'
+     */
+    public function scopeOfUser($query, $user)
     {
-        $all = self::all();
-        $uid = Auth::id();
-
-        return $all->filter(function ($value, $key) use ($uid) {
-            return $value->status !== 'closed' && $value->user_id == $uid;
-        });
+        return $query->where('user_id', $user->id)->whereNotIn('status', ['closed']);
     }
 
     public static function fetchByParams(array $params = [])
