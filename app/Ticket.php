@@ -34,47 +34,33 @@ class Ticket extends Model
     /**
      * Get tickets with 'new' status
      */
-    public static function getNew()
+    public function scopeTodo($query)
     {
-        $all = self::all();
-
-        return $all->filter(function($value, $key) {
-            return $value->status == 'new';
-        });
+        return $query->where('status', 'new');
     }
 
     /**
      * Get tickets with 'in progress' and 'awaiting' status
      */
-    public static function getDoing()
+    public function scopeDoing($query)
     {
-        $all = self::all();
-
-        return $all->filter(function ($value, $key) {
-            return $value->status == 'in progress' || $value->status == 'awaiting';
-        });
+        return $query->whereIn('status', ['in progress', 'awaiting']);
     }
 
     /**
      * Get tickets with 'closed' status
      */
-    public static function getDone()
+    public function scopeDone($query)
     {
-        $all = self::all();
-
-        return $all->filter(function ($value, $key) {
-            return $value->status == 'closed';
-        });
+        return $query->where('status', 'closed');
     }
 
-    public static function getCurrentUserActive()
+    /**
+     * Scope a query with given user where status is not 'closed'
+     */
+    public function scopeOfUser($query, $user)
     {
-        $all = self::all();
-        $uid = Auth::id();
-
-        return $all->filter(function ($value, $key) use ($uid) {
-            return $value->status !== 'closed' && $value->user_id == $uid;
-        });
+        return $query->where('user_id', $user->id)->whereNotIn('status', ['closed']);
     }
 
     public static function fetchByParams(array $params = [])

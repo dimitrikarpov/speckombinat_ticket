@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use App\Ticket;
 
 class HomeController extends Controller
@@ -26,16 +27,16 @@ class HomeController extends Controller
     {
         switch($tab) {
             case 'todo':
-                $tickets = Ticket::getNew();
+                $tickets = Ticket::todo()->get();
                 break;
             case 'doing':
-                $tickets = Ticket::getDoing();
+                $tickets = Ticket::doing()->get();
                 break;
             case 'done':
-                $tickets = Ticket::getDone();
+                $tickets = Ticket::done()->get();
                 break;
             default:
-                $tickets = Ticket::getNew();
+                $tickets = Ticket::todo()->get();
         }
 
         return view('home', compact(['tickets', 'tab']));
@@ -48,7 +49,7 @@ class HomeController extends Controller
      */
     public function dashboard()
     {
-        $tickets = Ticket::getCurrentUserActive();
+        $tickets = Ticket::ofUser(Auth::user())->get();
 
         return view('dashboard', compact('tickets'));
     }

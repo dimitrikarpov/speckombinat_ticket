@@ -23,12 +23,13 @@ class Category extends Model
     /**
      * Get categories that not archived
      */
-    public static function actual()
+    public function scopeNotArchived($query)
     {
-        $all = self::all();
-
-        return $all->reject(function($c) {
-            return $c->archived;
-        });
+        return $query->where('archived', '0');
+        // $all = self::all();
+        //
+        // return $all->reject(function($c) {
+        //     return $c->archived;
+        // });
     }
 }
