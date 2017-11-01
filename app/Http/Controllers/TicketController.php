@@ -29,7 +29,7 @@ class TicketController extends Controller
      */
     public function index()
     {
-        $categories = Category::actual();
+        $categories = Category::notArchived()->get();
         $users = User::all();
 
         $categoriesIds = $categories->pluck('id')->toArray();
@@ -67,14 +67,14 @@ class TicketController extends Controller
      */
     public function create()
     {
-        $categories = Category::actual();
+        $categories = Category::notArchived()->get();
 
         return view('ticket.index', compact('categories'));
     }
 
     public function add()
     {
-        $categories = Category::actual();
+        $categories = Category::notArchived()->get();
         $users = User::all();
 
         return view('ticket.create', compact('categories', 'users'));
@@ -88,7 +88,7 @@ class TicketController extends Controller
      */
     public function store(Request $request)
     {
-        $categoriesIds = Category::actual()->pluck('id')->toArray();
+        $categoriesIds = Category::notArchived()->get()->pluck('id')->toArray();
         $usersIds = User::all()->pluck('id')->toArray();
 
         $validatedData = $request->validate([
@@ -136,7 +136,7 @@ class TicketController extends Controller
      */
     public function edit(Ticket $ticket)
     {
-        $categories = Category::actual();
+        $categories = Category::notArchived()->get();
         $users = User::all();
 
         return view('ticket.edit', compact(['ticket', 'categories', 'users']));
@@ -151,7 +151,7 @@ class TicketController extends Controller
      */
     public function update(Request $request, Ticket $ticket)
     {
-        $categoriesIds = Category::actual()->pluck('id')->toArray();
+        $categoriesIds = Category::notArchived()->get()->pluck('id')->toArray();
         $usersIds = User::all()->pluck('id')->toArray();
 
         $validatedData = $request->validate([
