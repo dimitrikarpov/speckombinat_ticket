@@ -69,15 +69,13 @@ class TicketController extends Controller
     {
         $categories = Category::notArchived()->get();
 
+        if (Auth::check()) {
+            $users = User::all();
+
+            return view('ticket.create', compact('categories', 'users'));
+        }
+
         return view('ticket.index', compact('categories'));
-    }
-
-    public function add()
-    {
-        $categories = Category::notArchived()->get();
-        $users = User::all();
-
-        return view('ticket.create', compact('categories', 'users'));
     }
 
     /**
