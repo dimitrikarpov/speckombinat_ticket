@@ -28,7 +28,7 @@
     <nav class="navbar navbar-inverse navbar-fixed-top">
       <div class="container-fluid">
         <div class="navbar-header">
-          <a class="navbar-brand" href="#">
+          <a class="navbar-brand" href="/home">
               <img src="/img/logo.svg">
               <p>Спецкомбинат <span>Ticket</span></p>
           </a>

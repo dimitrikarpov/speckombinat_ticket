@@ -10,15 +10,24 @@
                 <tr>
                     <th>имя</th>
                     <th>email</th>
-                    <th><a href="/user/create" class="btn btn-primary btn-sm">Добавить</a></th>
+                    <th>
+                        <a href="/user/create" class="btn btn-primary btn-sm">
+                            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                        </a>
+                    </th>
                 </tr>
                 @foreach($users as $user)
                 <tr>
                     <td>{{ $user->name }}</td>
                     <td>{{ $user->email }}</td>
                     <td>
-                        <a href="/user/{{ $user->id }}/edit" class="btn btn-default btn-xs">edit</a>&nbsp;&nbsp;
-                        <a href="/user/{{ $user->id }}/destroy" class="btn btn-danger btn-xs" onclick="return confirm('are you sure?');">delete</a>
+                        <a href="/user/{{ $user->id }}/edit" class="btn btn-default btn-xs">
+                            <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+                        </a>
+                        &nbsp;&nbsp;
+                        <a href="/user/{{ $user->id }}/destroy" class="btn btn-danger btn-xs" onclick="return confirm('are you sure?');">
+                            <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                        </a>
                     </td>
                 </tr>
                 @endforeach

@@ -12,15 +12,14 @@
         <div class="col-md-10 col-md-offset-1">
             <div class="panel panel-default">
                 <div class="panel-heading">
-                        from: {{ $date_from }}
-                        to: {{ $date_to }}
+                        <span class="glyphicon glyphicon-calendar"></span> {{ $date_from }} - {{ $date_to }} &nbsp;&nbsp;
                         @isset($category_id)
-                            category: <span class="label label-default">{{ $categories->find($category_id)->name }}</span>
+                            <span class="label label-default">{{ $categories->find($category_id)->name }}</span>
                         @endisset
                         @isset($user_id)
-                            выполняет: <span class="label label-default">{{ $users->find($user_id)->name }}</span>
+                            <span class="label label-default">{{ $users->find($user_id)->name }}</span>
                         @endisset
-                    <button class="btn btn-primary pull-right btn-xs" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false">Search</button></div>
+                    <button class="btn btn-primary pull-right btn-xs" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false"><span class="glyphicon glyphicon-search"</button></div>
                 <div class="collapse" id="collapseExample">
                     <div class="panel-body">
                         <form class="form-horizontal" method="POST" action="/redirector">
@@ -82,7 +81,7 @@
                         <th>description</th>
                         <th>category</th>
                         <th>user</th>
-                        <th>view</th>
+                        <th></th>
                     </tr>
                     @foreach($tickets as $ticket)
                     <tr>
@@ -99,7 +98,7 @@
                             {{ $ticket->user->name }}
                         @endisset
                         </td>
-                        <td><a href="/ticket/{{$ticket->id}}">view</td>
+                        <td><a href="/ticket/{{$ticket->id}}" class="btn btn-default"><span class="glyphicon glyphicon-folder-open"></span></a></td>
                     </tr>
                     @endforeach
                 </table>

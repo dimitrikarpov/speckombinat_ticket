@@ -11,16 +11,29 @@
                     <th>название</th>
                     <th>описание</th>
                     <th></th>
-                    <th><a href="/category/create" class="btn btn-primary btn-sm">Добавить</a></th>
+                    <th>
+                        <a href="/category/create" class="btn btn-primary btn-sm">
+                            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                        </a>
+                    </th>
                 </tr>
                 @foreach($categories as $category)
                 <tr>
                     <td>{{ $category->name }}</td>
                     <td>{{ $category->description }}</td>
-                    <td>{{ $category->archived == 1 ? 'X': '' }}</td>
                     <td>
-                        <a href="/category/{{ $category->id }}/edit" class="btn btn-default btn-xs">edit</a>&nbsp;&nbsp;
-                        <a href="/category/{{ $category->id }}/destroy" class="btn btn-danger btn-xs" onclick="return confirm('are you sure?');">delete</a>
+                        @if($category->archived == 1)
+                            <span class="glyphicon glyphicon-eye-close"></span>
+                        @endisset
+                    </td>
+                    <td>
+                        <a href="/category/{{ $category->id }}/edit" class="btn btn-default btn-xs">
+                            <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+                        </a>
+                        &nbsp;&nbsp;
+                        <a href="/category/{{ $category->id }}/destroy" class="btn btn-danger btn-xs" onclick="return confirm('are you sure?');">
+                            <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                        </a>
                     </td>
                 </tr>
                 @endforeach

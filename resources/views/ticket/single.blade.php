@@ -26,7 +26,7 @@
             <p><a href="/ticket/{{ $ticket->id }}/edit">{{ $ticket->description }}</a></p>
 
             @isset($ticket->user_id)
-                <p>выполняет: <strong>{{ $ticket->user->name }}</strong></p>
+                <p><span class="glyphicon glyphicon-user"></span><strong> {{ $ticket->user->name }}</strong></p>
             @endisset
         </div><!-- panel-body -->
 
