@@ -20,7 +20,7 @@ Route::post('ticket/store', 'TicketController@store');
 Route::get('ticket/{ticket}/edit', 'TicketController@edit');
 Route::post('ticket/{ticket}/update', 'TicketController@update');
 
-Route::get('category', 'CategoryController@index');
+Route::get('categories', 'CategoryController@index')->name('categories');
 Route::get('category/{category}/edit', 'CategoryController@edit');
 Route::post('category/{category}/update', 'CategoryController@update');
 Route::get('category/create', 'CategoryController@create');

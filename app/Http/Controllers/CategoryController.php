@@ -57,7 +57,7 @@ class CategoryController extends Controller
         $category->archived = request('archived') == 'on' ? '1' : '0';
         $category->save();
 
-        return redirect('category');
+        return redirect('categories');
     }
 
     /**
@@ -100,7 +100,7 @@ class CategoryController extends Controller
         $category->archived = request('archived') == 'on' ? '1' : '0';
         $category->save();
 
-        return redirect('category');
+        return redirect('categories');
     }
 
     /**
@@ -113,6 +113,6 @@ class CategoryController extends Controller
     {
         Category::destroy($category->id);
 
-        return redirect('category');
+        return redirect('categories');
     }
 }
