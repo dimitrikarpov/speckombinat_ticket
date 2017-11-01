@@ -11,11 +11,7 @@
 @endphp
 
 <div class="col-md-4 col-sm-6">
-    @if ($ticket->priority == 'high')
-        <div class="panel panel-danger">
-    @else
-        <div class="panel panel-default">
-    @endif
+        <div class="panel panel-{{ $ticket->priority == 'high'?'danger':'default' }}">
         <div class="panel-heading">
             <div class="panel-title">
                 <h4>{{ $ticket-> raised }} <small>{{ $ticket->phone}}</small></h4>
@@ -27,6 +23,9 @@
 
             @isset($ticket->user_id)
                 <p><span class="glyphicon glyphicon-user"></span><strong> {{ $ticket->user->name }}</strong></p>
+            @endisset
+            @isset ($ticket->notes)
+                <p class="text-muted"><span class="glyphicon glyphicon-info-sign"></span>&nbsp;&nbsp;{{ $ticket->notes }}</p>
             @endisset
         </div><!-- panel-body -->
 
