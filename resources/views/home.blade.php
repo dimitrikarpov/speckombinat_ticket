@@ -1,36 +1,31 @@
-@extends('layouts.app')
+@extends('layouts.admin')
 
 @section('content')
 
 @includeWhen(session('status'), 'layouts.notification')
 
-<div class="container">
-    <div class="row">
-        <div class="col-md-8 col-md-offset-2">
-            <ul class="nav nav-pills nav-justified">
-                @if ($tab == 'todo')
-                    <li role="presentation" class="active"><a href="/home/todo">ToDo</a></li>
-                @else
-                    <li role="presentation"><a href="/home/todo">ToDo</a></li>
-                @endif
+    <ul class="nav nav-tabs nav-justified">
+        @if ($tab == 'todo')
+            <li role="presentation" class="active"><a href="/home/todo">ToDo</a></li>
+        @else
+            <li role="presentation"><a href="/home/todo">ToDo</a></li>
+        @endif
 
-                @if ($tab == 'doing')
-                    <li role="presentation" class="active"><a href="/home/doing">Doing</a></li>
-                @else
-                    <li role="presentation"><a href="/home/doing">Doing</a></li>
-                @endif
+        @if ($tab == 'doing')
+            <li role="presentation" class="active"><a href="/home/doing">Doing</a></li>
+        @else
+            <li role="presentation"><a href="/home/doing">Doing</a></li>
+        @endif
 
-                @if ($tab == 'done')
-                    <li role="presentation" class="active"><a href="/home/done">Done</a></li>
-                @else
-                    <li role="presentation"><a href="/home/done">Done</a></li>
-                @endif
-            </ul>
-        </div>
-    </div>
-</div>
-<br>
-<div class="container-fluid">
+        @if ($tab == 'done')
+            <li role="presentation" class="active"><a href="/home/done">Done</a></li>
+        @else
+            <li role="presentation"><a href="/home/done">Done</a></li>
+        @endif
+    </ul>
+
+    <br><br>
+
     <div class="row">
 
         @forelse ($tickets as $ticket)
@@ -40,5 +35,4 @@
         @endforelse
 
     </div>
-</div>
 @endsection

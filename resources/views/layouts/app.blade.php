@@ -29,7 +29,8 @@
 
                     <!-- Branding Image -->
                     <a class="navbar-brand" href="{{ url('/') }}">
-                        {{ config('app.name', 'Laravel') }}
+                        <img src="/img/logo.svg" style="margin-top:-5px;width:25px;display:inline">
+                        <p style="display:inline">Спецкомбинат <span style="color:#0d8bea">Ticket</span></p>
                     </a>
                 </div>
 

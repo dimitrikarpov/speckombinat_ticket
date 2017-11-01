@@ -26,25 +26,31 @@
             <p><a href="/ticket/{{ $ticket->id }}/edit">{{ $ticket->description }}</a></p>
 
             @isset($ticket->user_id)
-                <p>выполняет: <strong>{{ $ticket->user->name }}</strong></p>
+                <p><span class="glyphicon glyphicon-user"></span><strong> {{ $ticket->user->name }}</strong></p>
             @endisset
         </div><!-- panel-body -->
 
         <div class="panel-footer">
             @isset($ticket->status)
-                статус: <span class="label label-{{ $colors[$ticket->status] }}">{{ $ticket->status }}</span>
+                <div class="btn-group">
+                    <a href="#" class="btn btn-default btn-xs disabled">статус</a>
+                    <a href="#" class="btn btn-{{ $colors[$ticket->status] }} btn-xs disabled">{{ $ticket->status }}</a>
+                </div>
             @endisset
 
             &nbsp;&nbsp;
 
             @isset($ticket->priority)
-                приоритет: <span class="label label-{{ $colors[$ticket->priority] }}">{{ $ticket->priority }}</span>
+                <div class="btn-group">
+                    <a href="#" class="btn btn-default btn-xs disabled">приоритет</a>
+                    <a href="#" class="btn btn-{{ $colors[$ticket->priority] }} btn-xs disabled">{{$ticket->priority }}</a>
+                </div>
             @endisset
 
             &nbsp;&nbsp;
 
             @isset($ticket->category_id)
-                категория: <span class="label label-default">{{ $ticket->category->name }}</span>
+                <span class="label label-default">{{ $ticket->category->name }}</span>
             @endisset
         </div>
 
