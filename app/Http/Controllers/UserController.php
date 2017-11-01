@@ -57,7 +57,7 @@ class UserController extends Controller
 
         User::create($validatedData);
 
-        return redirect('user');
+        return redirect('users');
     }
 
     /**
@@ -104,7 +104,7 @@ class UserController extends Controller
 
         $user->save();
 
-        return redirect('user');
+        return redirect('users');
     }
 
     /**
@@ -117,6 +117,6 @@ class UserController extends Controller
     {
         User::destroy($user->id);
 
-        return redirect('user');
+        return redirect('users');
     }
 }

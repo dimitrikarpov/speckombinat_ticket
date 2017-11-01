@@ -69,15 +69,13 @@ class TicketController extends Controller
     {
         $categories = Category::notArchived()->get();
 
+        if (Auth::check()) {
+            $users = User::all();
+
+            return view('ticket.create', compact('categories', 'users'));
+        }
+
         return view('ticket.index', compact('categories'));
-    }
-
-    public function add()
-    {
-        $categories = Category::notArchived()->get();
-        $users = User::all();
-
-        return view('ticket.create', compact('categories', 'users'));
     }
 
     /**
@@ -98,8 +96,7 @@ class TicketController extends Controller
             'category_id' => Rule::in($categoriesIds),
             'status' => Rule::in(['new', 'in progress', 'awaiting', 'closed']),
             'priority' => Rule::in(['low', 'normal', 'high']),
-            'user_id' => Rule::in($usersIds),
-            'notes' => 'min:10'
+            'user_id' => Rule::in($usersIds)
         ]);
 
         $ticket = Ticket::create($validatedData);
@@ -161,8 +158,7 @@ class TicketController extends Controller
             'category_id' => Rule::in($categoriesIds),
             'status' => Rule::in(['new', 'in progress', 'awaiting', 'closed']),
             'priority' => Rule::in(['low', 'normal', 'high']),
-            'user_id' => Rule::in($usersIds),
-            'notes' => 'min:10'
+            'user_id' => Rule::in($usersIds)
         ]);
 
         $ticket->fill($validatedData);

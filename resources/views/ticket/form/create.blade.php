@@ -25,7 +25,6 @@
   <label for="selectCategory" class="col-sm-2 control-label">Категория</label>
   <div class="col-sm-10">
       <select class="form-control" name="category_id" id="selectCategory">
-          <option></option>
       @foreach($categories as $category)
           <option value="{{ $category->id }}">{{ $category->name }}</option>
       @endforeach
@@ -33,7 +32,7 @@
   </div>
 </div>
 
-@if (Auth::check() && Request::is('ticket/add'))
+@if (Auth::check() && Request::is('ticket/create'))
     <div class="form-group">
         <label for="inputNotes" class="col-sm-2 control-label">Заметки</label>
         <div class="col-sm-10">
