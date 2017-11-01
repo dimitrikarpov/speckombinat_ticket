@@ -96,8 +96,7 @@ class TicketController extends Controller
             'category_id' => Rule::in($categoriesIds),
             'status' => Rule::in(['new', 'in progress', 'awaiting', 'closed']),
             'priority' => Rule::in(['low', 'normal', 'high']),
-            'user_id' => Rule::in($usersIds),
-            'notes' => 'min:10'
+            'user_id' => Rule::in($usersIds)
         ]);
 
         $ticket = Ticket::create($validatedData);
@@ -159,8 +158,7 @@ class TicketController extends Controller
             'category_id' => Rule::in($categoriesIds),
             'status' => Rule::in(['new', 'in progress', 'awaiting', 'closed']),
             'priority' => Rule::in(['low', 'normal', 'high']),
-            'user_id' => Rule::in($usersIds),
-            'notes' => 'min:10'
+            'user_id' => Rule::in($usersIds)
         ]);
 
         $ticket->fill($validatedData);
