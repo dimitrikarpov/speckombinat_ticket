@@ -26,7 +26,7 @@ class HomeController extends Controller
     {
         switch($tab) {
             case 'todo':
-                $tickets = Ticket::getNew();
+                $tickets = Ticket::todo()->get();
                 break;
             case 'doing':
                 $tickets = Ticket::getDoing();
@@ -35,7 +35,7 @@ class HomeController extends Controller
                 $tickets = Ticket::getDone();
                 break;
             default:
-                $tickets = Ticket::getNew();
+                $tickets = Ticket::todo()->get();
         }
 
         return view('home', compact(['tickets', 'tab']));

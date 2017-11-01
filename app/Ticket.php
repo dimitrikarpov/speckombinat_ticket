@@ -34,13 +34,9 @@ class Ticket extends Model
     /**
      * Get tickets with 'new' status
      */
-    public static function getNew()
+    public function scopeTodo($query)
     {
-        $all = self::all();
-
-        return $all->filter(function($value, $key) {
-            return $value->status == 'new';
-        });
+        return $query->where('status', 'new');
     }
 
     /**
