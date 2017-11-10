@@ -25,7 +25,7 @@ class HomeController extends Controller
      */
     public function index($tab = 'todo')
     {
-        switch($tab) {
+        switch ($tab) {
             case 'todo':
                 $tickets = Ticket::todo()->get();
                 break;
