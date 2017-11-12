@@ -27,7 +27,7 @@ class CategoryTest extends TestCase
      * @test
      * Route::get('categories', 'CategoryController@index')
      */
-    public function canListCategories()
+    public function canViewList()
     {
         $this->get('/categories')->assertSee($this->category->name);
     }
@@ -36,7 +36,7 @@ class CategoryTest extends TestCase
      * @test
      * Route::get('category/create', 'CategoryController@create')
      */
-    public function canViewAddForm()
+    public function canViewCreateForm()
     {
         $this->get('/category/create')->assertStatus(200);
     }
@@ -45,7 +45,7 @@ class CategoryTest extends TestCase
      * @test
      * Route::post('category/store', 'CategoryController@store')
      */
-    public function canAddCategories()
+    public function canStore()
     {
         $category = factory('App\Category')->make();
 
@@ -84,7 +84,7 @@ class CategoryTest extends TestCase
      * @test
      * Route::get('category/{category}/destroy', 'CategoryController@destroy')
      */
-    public function canDelete()
+    public function canDestroy()
     {
         $this->get('/category/' . $this->category->id . '/destroy');
 
