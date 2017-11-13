@@ -15,23 +15,23 @@ Route::get('/', 'TicketController@create');
 Route::get('tickets', 'TicketController@index')->name('tickets');
 Route::post('redirector', 'TicketController@redirector');
 Route::get('ticket/create', 'TicketController@create');
-Route::get('ticket/{ticket}', 'TicketController@show');
 Route::post('ticket/store', 'TicketController@store');
+Route::get('ticket/{ticket}', 'TicketController@show');
 Route::get('ticket/{ticket}/edit', 'TicketController@edit');
 Route::post('ticket/{ticket}/update', 'TicketController@update');
 
 Route::get('categories', 'CategoryController@index')->name('categories');
-Route::get('category/{category}/edit', 'CategoryController@edit');
-Route::post('category/{category}/update', 'CategoryController@update');
 Route::get('category/create', 'CategoryController@create');
 Route::post('category/store', 'CategoryController@store');
+Route::get('category/{category}/edit', 'CategoryController@edit');
+Route::post('category/{category}/update', 'CategoryController@update');
 Route::get('category/{category}/destroy', 'CategoryController@destroy');
 
 Route::get('users', 'UserController@index');
-Route::get('user/{user}/edit', 'UserController@edit');
-Route::post('user/{user}/update', 'UserController@update');
 Route::get('user/create', 'UserController@create');
 Route::post('user/store', 'UserController@store');
+Route::get('user/{user}/edit', 'UserController@edit');
+Route::post('user/{user}/update', 'UserController@update');
 Route::get('user/{user}/destroy', 'UserController@destroy');
 
 Auth::routes();

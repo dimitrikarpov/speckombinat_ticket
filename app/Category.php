@@ -26,10 +26,5 @@ class Category extends Model
     public function scopeNotArchived($query)
     {
         return $query->where('archived', '0');
-        // $all = self::all();
-        //
-        // return $all->reject(function($c) {
-        //     return $c->archived;
-        // });
     }
 }

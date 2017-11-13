@@ -98,7 +98,7 @@ class UserController extends Controller
 
         $user->fill($validatedData);
 
-        if($request->password) {
+        if ($request->password) {
             $user->password = bcrypt($request->password);
         }
 

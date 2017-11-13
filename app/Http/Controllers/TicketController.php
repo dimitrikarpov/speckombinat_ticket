@@ -162,10 +162,10 @@ class TicketController extends Controller
         ]);
 
         $ticket->fill($validatedData);
-        $ticket->status = $validatedData['status'];
-        $ticket->priority = $validatedData['priority'];
-        $ticket->user_id = $validatedData['user_id'];
-        $ticket->notes = $validatedData['notes'];
+        $ticket->status = $validatedData['status'] ?? 'new';
+        $ticket->priority = $validatedData['priority'] ?? 'normal';
+        $ticket->user_id = $validatedData['user_id'] ?? null;
+        $ticket->notes = $validatedData['notes'] ?? null;
         $ticket->save();
 
         return redirect('home')->with('status', 'Ticket updated!');
