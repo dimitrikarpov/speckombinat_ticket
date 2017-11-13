@@ -58,7 +58,7 @@ class UserTest extends TestCase
     public function canViewEditForm()
     {
         $this->get('/user/' . $this->user->id . '/edit')
-            ->assertSee($this->user->name);
+            ->assertSee($this->user->email);
     }
 
     /**
