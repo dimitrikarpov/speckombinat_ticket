@@ -15,8 +15,8 @@ Route::get('/', 'TicketController@create');
 Route::get('tickets', 'TicketController@index')->name('tickets');
 Route::post('redirector', 'TicketController@redirector');
 Route::get('ticket/create', 'TicketController@create');
-Route::get('ticket/{ticket}', 'TicketController@show');
 Route::post('ticket/store', 'TicketController@store');
+Route::get('ticket/{ticket}', 'TicketController@show');
 Route::get('ticket/{ticket}/edit', 'TicketController@edit');
 Route::post('ticket/{ticket}/update', 'TicketController@update');
 
