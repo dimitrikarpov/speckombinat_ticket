@@ -21,14 +21,14 @@
                   <div class="form-group">
                     <label for="inputName" class="col-sm-4 control-label">Имя</label>
                     <div class="col-sm-8">
-                      <input type="text" class="form-control" id="inputName" placeholder="Имя" name="name" value="{{ $user->name }}">
+                      <input type="text" class="form-control" id="inputName" placeholder="Имя" name="name" value="{{ $user->name }}" required>
                     </div>
                   </div>
 
                   <div class="form-group">
                     <label for="inputEmail" class="col-sm-4 control-label">Email</label>
                     <div class="col-sm-8">
-                      <input type="email" class="form-control" id="inputEmail" placeholder="email" name="email" value="{{ $user->email }}">
+                      <input type="email" class="form-control" id="inputEmail" placeholder="email" name="email" value="{{ $user->email }}" required>
                     </div>
                   </div>
 
