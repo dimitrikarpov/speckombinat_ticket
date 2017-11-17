@@ -89,4 +89,18 @@ class CategoryTest extends TestCase
 
         $this->assertDatabaseMissing('categories', $this->category->toArray());
     }
+
+    /**
+     * @test
+     */
+    public function guestMayNotParticipateCategories()
+    {
+        auth()->logout();
+        $this->get('/categories')->assertRedirect('/login');
+        $this->get('/category/create')->assertRedirect('/login');
+        $this->post('/category/store')->assertRedirect('/login');
+        $this->get('/category/1/edit')->assertRedirect('/login');
+        $this->post('/category/1/update')->assertRedirect('/login');
+        $this->get('/category/1/destroy')->assertRedirect('/login');
+    }
 }

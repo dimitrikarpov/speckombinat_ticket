@@ -21,24 +21,14 @@
                   <div class="form-group">
                     <label for="inputName" class="col-sm-2 control-label">Название</label>
                     <div class="col-sm-10">
-                      <input type="text" class="form-control" id="inputName" placeholder="Название" name="name">
+                      <input type="text" class="form-control" id="inputName" placeholder="Название" name="name" required>
                     </div>
                   </div>
 
                   <div class="form-group">
                     <label for="textareaDescription" class="col-sm-2 control-label">Описание</label>
                     <div class="col-sm-10">
-                      <textarea class="form-control" id="textareaDescription" placeholder="Описание" name="description" rows="4" cols="80"></textarea>
-                    </div>
-                  </div>
-
-                  <div class="form-group">
-                    <div class="col-sm-offset-2 col-sm-10">
-                      <div class="checkbox">
-                        <label>
-                          <input type="checkbox" name="archived"> Не используется
-                        </label>
-                      </div>
+                      <textarea class="form-control" id="textareaDescription" placeholder="Описание" name="description" rows="4" cols="80" required></textarea>
                     </div>
                   </div>
 
