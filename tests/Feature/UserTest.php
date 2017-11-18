@@ -95,4 +95,18 @@ class UserTest extends TestCase
             ['id' => $this->user->id, 'name' => $this->user->name]
         );
     }
+
+    /**
+     * @test
+     */
+    public function guestMayNotParticipateUsers()
+    {
+        auth()->logout();
+        $this->get('/users')->assertRedirect('/login');
+        $this->get('/user/create')->assertRedirect('/login');
+        $this->post('/user/store')->assertRedirect('/login');
+        $this->get('/user/1/edit')->assertRedirect('/login');
+        $this->post('/user/1/update')->assertRedirect('/login');
+        $this->get('/user/1/destroy')->assertRedirect('/login');
+    }
 }

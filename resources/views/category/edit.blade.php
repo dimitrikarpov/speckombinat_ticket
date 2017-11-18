@@ -21,14 +21,14 @@
                   <div class="form-group">
                     <label for="inputName" class="col-sm-2 control-label">Название</label>
                     <div class="col-sm-10">
-                      <input type="text" class="form-control" id="inputName" placeholder="Название" name="name" value="{{ $category->name }}">
+                      <input type="text" class="form-control" id="inputName" placeholder="Название" name="name" value="{{ $category->name }}" required>
                     </div>
                   </div>
 
                   <div class="form-group">
                     <label for="textareaDescription" class="col-sm-2 control-label">Описание</label>
                     <div class="col-sm-10">
-                      <textarea class="form-control" id="textareaDescription" placeholder="Описание" name="description" rows="4" cols="80">{{ $category->description }}</textarea>
+                      <textarea class="form-control" id="textareaDescription" placeholder="Описание" name="description" rows="4" cols="80" required>{{ $category->description }}</textarea>
                     </div>
                   </div>
 

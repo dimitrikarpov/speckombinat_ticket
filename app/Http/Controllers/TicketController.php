@@ -75,7 +75,7 @@ class TicketController extends Controller
             return view('ticket.create', compact('categories', 'users'));
         }
 
-        return view('ticket.index', compact('categories'));
+        return view('index', compact('categories'));
     }
 
     /**
@@ -87,30 +87,50 @@ class TicketController extends Controller
     public function store(Request $request)
     {
         $categoriesIds = Category::notArchived()->get()->pluck('id')->toArray();
-        $usersIds = User::all()->pluck('id')->toArray();
 
-        $validatedData = $request->validate([
-            'raised' => 'required|string|min:5',
-            'phone' => 'required',
-            'description' => 'required',
-            'category_id' => Rule::in($categoriesIds),
-            'status' => Rule::in(['new', 'in progress', 'awaiting', 'closed']),
-            'priority' => Rule::in(['low', 'normal', 'high']),
-            'user_id' => Rule::in($usersIds)
-        ]);
+        if (! Auth::check()) {
+            $request->validate([
+                'raised' => 'required|string|min:5',
+                'phone' => 'required',
+                'description' => 'required',
+                'category_id' => ['nullable', Rule::in($categoriesIds)]
+            ]);
 
-        $ticket = Ticket::create($validatedData);
+            $ticket = Ticket::create([
+                'raised' => request('raised'),
+                'phone' => request('phone'),
+                'description' => request('description'),
+                'category_id' => request('category_id'),
+                'status' => 'new',
+                'priority' => 'normal'
+            ]);
 
-        $ticket->status = $validatedData['status'] ?? 'new';
-        $ticket->priority = $validatedData['priority'] ?? 'normal';
-        $ticket->user_id = $validatedData['user_id'] ?? null;
-        $ticket->notes = $validatedData['notes'] ?? null;
-        $ticket->save();
-
-        if (Auth::check()) {
-            return redirect('dashboard')->with('status', 'Ticket added');
-        } else {
             return redirect('/')->with('status', 'Заявка добавлена!');
+        } else {
+            $request->validate([
+                'raised' => 'required|string|min:5',
+                'phone' => 'required',
+                'description' => 'required',
+                'category_id' => ['nullable', Rule::in($categoriesIds)],
+                'status' => ['nullable', Rule::in(['new', 'in progress', 'awaiting', 'closed'])],
+                'priority' => ['nullable', Rule::in(['low', 'normal', 'high'])],
+                'user_id' => 'nullable|exists:users,id',
+                'notes' => 'nullable|string'
+            ]);
+
+            $ticket = Ticket::create([
+                'raised' => request('raised'),
+                'phone' => request('phone'),
+                'description' => request('description'),
+                'category_id' => request('category_id'),
+            ]);
+            $ticket->status = request('status') ?? 'new';
+            $ticket->priority = request('priority') ?? 'normal';
+            $ticket->user_id = request('user_id') ?? auth()->id();
+            $ticket->notes = request('notes');
+            $ticket->save();
+
+            return redirect('dashboard')->with('status', 'Ticket added');
         }
     }
 
@@ -149,16 +169,16 @@ class TicketController extends Controller
     public function update(Request $request, Ticket $ticket)
     {
         $categoriesIds = Category::notArchived()->get()->pluck('id')->toArray();
-        $usersIds = User::all()->pluck('id')->toArray();
 
         $validatedData = $request->validate([
             'raised' => 'required|string|min:5',
             'phone' => 'required',
             'description' => 'required',
-            'category_id' => Rule::in($categoriesIds),
-            'status' => Rule::in(['new', 'in progress', 'awaiting', 'closed']),
-            'priority' => Rule::in(['low', 'normal', 'high']),
-            'user_id' => Rule::in($usersIds)
+            'category_id' => ['nullable', Rule::in($categoriesIds)],
+            'status' => ['required', Rule::in(['new', 'in progress', 'awaiting', 'closed'])],
+            'priority' => ['required', Rule::in(['low', 'normal', 'high'])],
+            'user_id' => 'nullable|exists:users,id',
+            'notes' => 'nullable|string'
         ]);
 
         $ticket->fill($validatedData);
@@ -169,16 +189,5 @@ class TicketController extends Controller
         $ticket->save();
 
         return redirect('home')->with('status', 'Ticket updated!');
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Ticket  $ticket
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Ticket $ticket)
-    {
-        //
     }
 }
