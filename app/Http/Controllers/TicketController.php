@@ -75,7 +75,7 @@ class TicketController extends Controller
             return view('ticket.create', compact('categories', 'users'));
         }
 
-        return view('ticket.index', compact('categories'));
+        return view('index', compact('categories'));
     }
 
     /**

@@ -26,56 +26,53 @@
   <div class="col-sm-10">
       <select class="form-control" name="category_id" id="selectCategory">
         <option></option>
-      @foreach($categories as $category)
-          <option value="{{ $category->id }}">{{ $category->name }}</option>
-      @endforeach
+        @foreach($categories as $category)
+            <option value="{{ $category->id }}">{{ $category->name }}</option>
+        @endforeach
       </select>
   </div>
 </div>
 
-@if (Auth::check() && Request::is('ticket/create'))
-    <div class="form-group">
-        <label for="inputNotes" class="col-sm-2 control-label">Заметки</label>
-        <div class="col-sm-10">
-          <textarea class="form-control" id="inputNotes" placeholder="Заметки" name="notes" rows="4" cols="80"></textarea>
-        </div>
+<div class="form-group">
+    <label for="inputNotes" class="col-sm-2 control-label">Заметки</label>
+    <div class="col-sm-10">
+      <textarea class="form-control" id="inputNotes" placeholder="Заметки" name="notes" rows="4" cols="80"></textarea>
     </div>
+</div>
 
-    <div class="form-group">
-        <label for="selectStatus" class="col-sm-2 control-label">Статус</label>
-        <div class="col-sm-10">
-            <select class="form-control" id="selectStatus" name="status">
-                <option value="new">new</option>
-                <option value="in progress" selected>in progress</option>
-                <option value="awaiting">awaiting</option>
-                <option value="closed">closed</option>
-            </select>
-        </div>
+<div class="form-group">
+    <label for="selectStatus" class="col-sm-2 control-label">Статус</label>
+    <div class="col-sm-10">
+        <select class="form-control" id="selectStatus" name="status">
+            <option value="new">new</option>
+            <option value="in progress" selected>in progress</option>
+            <option value="awaiting">awaiting</option>
+            <option value="closed">closed</option>
+        </select>
     </div>
+</div>
 
-    <div class="form-group">
-        <label for="selectPriority" class="col-sm-2 control-label">Приоритет</label>
-        <div class="col-sm-10">
-            <select class="form-control" id="selectPriority" name="priority">
-                <option value="low">low</option>
-                <option value="normal" selected>normal</option>
-                <option value="high">high</option>
-            </select>
-        </div>
+<div class="form-group">
+    <label for="selectPriority" class="col-sm-2 control-label">Приоритет</label>
+    <div class="col-sm-10">
+        <select class="form-control" id="selectPriority" name="priority">
+            <option value="low">low</option>
+            <option value="normal" selected>normal</option>
+            <option value="high">high</option>
+        </select>
     </div>
+</div>
 
-    <div class="form-group">
-        <label for="selectUser" class="col-sm-2 control-label">Выполняет</label>
-        <div class="col-sm-10">
-            <select class="form-control" id="selectUser" name="user_id">
-                @foreach($users as $user)
-                  <option value="{{ $user->id}}" {{ Auth::id() == $user->id ? 'selected':''}}>{{ $user->name }}</option>
-                @endforeach
-            </select>
-        </div>
+<div class="form-group">
+    <label for="selectUser" class="col-sm-2 control-label">Выполняет</label>
+    <div class="col-sm-10">
+        <select class="form-control" id="selectUser" name="user_id">
+            @foreach($users as $user)
+              <option value="{{ $user->id}}" {{ Auth::id() == $user->id ? 'selected':''}}>{{ $user->name }}</option>
+            @endforeach
+        </select>
     </div>
-
-@endif
+</div>
 
 <div class="form-group">
   <div class="col-sm-offset-2 col-sm-10">

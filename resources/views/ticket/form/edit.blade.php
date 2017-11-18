@@ -25,9 +25,10 @@
   <label for="selectCategory" class="col-sm-2 control-label">Категория</label>
   <div class="col-sm-10">
       <select class="form-control" id="selectCategory" name="category_id">
-      @foreach($categories as $category)
-        <option value="{{ $category->id }}" {{ $ticket->category_id == $category->id ? 'selected':'' }}>{{ $category->name }}</option>
-      @endforeach
+        <option></option>
+        @foreach($categories as $category)
+          <option value="{{ $category->id }}" {{ $ticket->category_id == $category->id ? 'selected':'' }}>{{ $category->name }}</option>
+        @endforeach
     </select>
   </div>
 </div>
