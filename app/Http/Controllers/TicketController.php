@@ -190,15 +190,4 @@ class TicketController extends Controller
 
         return redirect('home')->with('status', 'Ticket updated!');
     }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Ticket  $ticket
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Ticket $ticket)
-    {
-        //
-    }
 }
