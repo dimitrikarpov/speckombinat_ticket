@@ -1,4 +1,4 @@
-@component('ticket.form.layout', ['action' => '/ticket/store', 'formTitle' => 'Создать заявку'])
+@component('ticket.form.layout', ['action' => '/ticket/unauth', 'formTitle' => 'Создать заявку'])
 
 <div class="form-group">
   <label for="inputName" class="col-sm-2 control-label">Имя</label>

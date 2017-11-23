@@ -9,6 +9,9 @@ use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Requests\TicketStoreByUnauthRequest;
+use App\Http\Requests\TicketStoreRequest;
+use App\Http\Requests\TicketUpdateRequest;
 
 class TicketController extends Controller
 {
@@ -19,7 +22,7 @@ class TicketController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth')->except(['create', 'store']);
+        $this->middleware('auth')->except(['create', 'unauth']);
     }
 
     /**
@@ -81,57 +84,42 @@ class TicketController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Http\Requests\TicketStoreRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(TicketStoreRequest $request)
     {
-        $categoriesIds = Category::notArchived()->get()->pluck('id')->toArray();
+        $ticket = Ticket::create([
+            'raised' => request('raised'),
+            'phone' => request('phone'),
+            'description' => request('description'),
+            'category_id' => request('category_id'),
+        ]);
+        $ticket->status = request('status') ?? 'new';
+        $ticket->priority = request('priority') ?? 'normal';
+        $ticket->user_id = request('user_id') ?? auth()->id();
+        $ticket->notes = request('notes');
+        $ticket->save();
 
-        if (! Auth::check()) {
-            $request->validate([
-                'raised' => 'required|string|min:5',
-                'phone' => 'required',
-                'description' => 'required',
-                'category_id' => ['nullable', Rule::in($categoriesIds)]
-            ]);
+        return redirect('dashboard')->with('status', 'Ticket added');
+    }
 
-            $ticket = Ticket::create([
-                'raised' => request('raised'),
-                'phone' => request('phone'),
-                'description' => request('description'),
-                'category_id' => request('category_id'),
-                'status' => 'new',
-                'priority' => 'normal'
-            ]);
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \App\Http\Requests\TicketStoreByUnauthRequest $request
+     * @return \Illuminate\Http\Response
+     */
+    public function unauth(TicketStoreByUnauthRequest $request)
+    {
+        $ticket = Ticket::create([
+            'raised' => request('raised'),
+            'phone' => request('phone'),
+            'description' => request('description'),
+            'category_id' => request('category_id'),
+        ]);
 
-            return redirect('/')->with('status', 'Заявка добавлена!');
-        } else {
-            $request->validate([
-                'raised' => 'required|string|min:5',
-                'phone' => 'required',
-                'description' => 'required',
-                'category_id' => ['nullable', Rule::in($categoriesIds)],
-                'status' => ['nullable', Rule::in(['new', 'in progress', 'awaiting', 'closed'])],
-                'priority' => ['nullable', Rule::in(['low', 'normal', 'high'])],
-                'user_id' => 'nullable|exists:users,id',
-                'notes' => 'nullable|string'
-            ]);
-
-            $ticket = Ticket::create([
-                'raised' => request('raised'),
-                'phone' => request('phone'),
-                'description' => request('description'),
-                'category_id' => request('category_id'),
-            ]);
-            $ticket->status = request('status') ?? 'new';
-            $ticket->priority = request('priority') ?? 'normal';
-            $ticket->user_id = request('user_id') ?? auth()->id();
-            $ticket->notes = request('notes');
-            $ticket->save();
-
-            return redirect('dashboard')->with('status', 'Ticket added');
-        }
+        return redirect('/')->with('status', 'Заявка добавлена!');
     }
 
     /**
@@ -162,26 +150,19 @@ class TicketController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  App\Http\Requests\TicketUpdateRequest  $request
      * @param  \App\Ticket  $ticket
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Ticket $ticket)
+    public function update(TicketUpdateRequest $request, Ticket $ticket)
     {
-        $categoriesIds = Category::notArchived()->get()->pluck('id')->toArray();
-
-        $validatedData = $request->validate([
-            'raised' => 'required|string|min:5',
-            'phone' => 'required',
-            'description' => 'required',
-            'category_id' => ['nullable', Rule::in($categoriesIds)],
-            'status' => ['required', Rule::in(['new', 'in progress', 'awaiting', 'closed'])],
-            'priority' => ['required', Rule::in(['low', 'normal', 'high'])],
-            'user_id' => 'nullable|exists:users,id',
-            'notes' => 'nullable|string'
+        $ticket->fill([
+            'raised' => request('raised'),
+            'phone' => request('phone'),
+            'description' => request('description'),
+            'category_id' => request('category_id')
         ]);
 
-        $ticket->fill($validatedData);
         $ticket->status = $validatedData['status'] ?? 'new';
         $ticket->priority = $validatedData['priority'] ?? 'normal';
         $ticket->user_id = $validatedData['user_id'] ?? null;

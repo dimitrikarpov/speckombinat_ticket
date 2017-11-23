@@ -23,10 +23,10 @@ class TicketFormTest extends TestCase
     {
         auth()->logout();
 
-        $this->createTicket(['raised' => null])->assertSessionHasErrors('raised');
-        $this->createTicket(['phone' => null])->assertSessionHasErrors('phone');
-        $this->createTicket(['description' => null])->assertSessionHasErrors('description');
-        $this->createTicket(['category_id' => 999])->assertSessionHasErrors('category_id');
+        $this->createTicketByUnauthicatedUser(['raised' => null])->assertSessionHasErrors('raised');
+        $this->createTicketByUnauthicatedUser(['phone' => null])->assertSessionHasErrors('phone');
+        $this->createTicketByUnauthicatedUser(['description' => null])->assertSessionHasErrors('description');
+        $this->createTicketByUnauthicatedUser(['category_id' => 999])->assertSessionHasErrors('category_id');
     }
 
     /**
@@ -75,6 +75,15 @@ class TicketFormTest extends TestCase
         $ticket = factory('App\Ticket')->create();
 
         $response = $this->post("/ticket/{$ticket->id}/update", $overrides);
+
+        return $response;
+    }
+
+    public function createTicketByUnauthicatedUser($overrides = [])
+    {
+        $ticket = factory('App\Ticket')->make($overrides);
+
+        $response = $this->post('/ticket/unauth', $ticket->toArray());
 
         return $response;
     }
