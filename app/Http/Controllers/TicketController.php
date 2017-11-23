@@ -19,7 +19,7 @@ class TicketController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth')->except(['create', 'store']);
+        $this->middleware('auth')->except(['create', 'unauth']);
     }
 
     /**
@@ -88,50 +88,59 @@ class TicketController extends Controller
     {
         $categoriesIds = Category::notArchived()->get()->pluck('id')->toArray();
 
-        if (! Auth::check()) {
-            $request->validate([
-                'raised' => 'required|string|min:5',
-                'phone' => 'required',
-                'description' => 'required',
-                'category_id' => ['nullable', Rule::in($categoriesIds)]
-            ]);
+        $request->validate([
+            'raised' => 'required|string|min:5',
+            'phone' => 'required',
+            'description' => 'required',
+            'category_id' => ['nullable', Rule::in($categoriesIds)],
+            'status' => ['nullable', Rule::in(['new', 'in progress', 'awaiting', 'closed'])],
+            'priority' => ['nullable', Rule::in(['low', 'normal', 'high'])],
+            'user_id' => 'nullable|exists:users,id',
+            'notes' => 'nullable|string'
+        ]);
 
-            $ticket = Ticket::create([
-                'raised' => request('raised'),
-                'phone' => request('phone'),
-                'description' => request('description'),
-                'category_id' => request('category_id'),
-                'status' => 'new',
-                'priority' => 'normal'
-            ]);
+        $ticket = Ticket::create([
+            'raised' => request('raised'),
+            'phone' => request('phone'),
+            'description' => request('description'),
+            'category_id' => request('category_id'),
+        ]);
+        $ticket->status = request('status') ?? 'new';
+        $ticket->priority = request('priority') ?? 'normal';
+        $ticket->user_id = request('user_id') ?? auth()->id();
+        $ticket->notes = request('notes');
+        $ticket->save();
 
-            return redirect('/')->with('status', 'Заявка добавлена!');
-        } else {
-            $request->validate([
-                'raised' => 'required|string|min:5',
-                'phone' => 'required',
-                'description' => 'required',
-                'category_id' => ['nullable', Rule::in($categoriesIds)],
-                'status' => ['nullable', Rule::in(['new', 'in progress', 'awaiting', 'closed'])],
-                'priority' => ['nullable', Rule::in(['low', 'normal', 'high'])],
-                'user_id' => 'nullable|exists:users,id',
-                'notes' => 'nullable|string'
-            ]);
+        return redirect('dashboard')->with('status', 'Ticket added');
+    }
 
-            $ticket = Ticket::create([
-                'raised' => request('raised'),
-                'phone' => request('phone'),
-                'description' => request('description'),
-                'category_id' => request('category_id'),
-            ]);
-            $ticket->status = request('status') ?? 'new';
-            $ticket->priority = request('priority') ?? 'normal';
-            $ticket->user_id = request('user_id') ?? auth()->id();
-            $ticket->notes = request('notes');
-            $ticket->save();
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function unauth(Request $request)
+    {
+        $categoriesIds = Category::notArchived()->get()->pluck('id')->toArray();
 
-            return redirect('dashboard')->with('status', 'Ticket added');
-        }
+        $request->validate([
+            'raised' => 'required|string|min:5',
+            'phone' => 'required',
+            'description' => 'required',
+            'category_id' => ['nullable', Rule::in($categoriesIds)]
+        ]);
+
+        $ticket = Ticket::create([
+            'raised' => request('raised'),
+            'phone' => request('phone'),
+            'description' => request('description'),
+            'category_id' => request('category_id'),
+            'status' => 'new',
+            'priority' => 'normal'
+        ]);
+
+        return redirect('/')->with('status', 'Заявка добавлена!');
     }
 
     /**
