@@ -9,6 +9,9 @@ use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Requests\TicketStoreByUnauthRequest;
+use App\Http\Requests\TicketStoreRequest;
+use App\Http\Requests\TicketUpdateRequest;
 
 class TicketController extends Controller
 {
@@ -81,24 +84,11 @@ class TicketController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Http\Requests\TicketStoreRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(TicketStoreRequest $request)
     {
-        $categoriesIds = Category::notArchived()->get()->pluck('id')->toArray();
-
-        $request->validate([
-            'raised' => 'required|string|min:5',
-            'phone' => 'required',
-            'description' => 'required',
-            'category_id' => ['nullable', Rule::in($categoriesIds)],
-            'status' => ['nullable', Rule::in(['new', 'in progress', 'awaiting', 'closed'])],
-            'priority' => ['nullable', Rule::in(['low', 'normal', 'high'])],
-            'user_id' => 'nullable|exists:users,id',
-            'notes' => 'nullable|string'
-        ]);
-
         $ticket = Ticket::create([
             'raised' => request('raised'),
             'phone' => request('phone'),
@@ -117,27 +107,16 @@ class TicketController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Http\Requests\TicketStoreByUnauthRequest $request
      * @return \Illuminate\Http\Response
      */
-    public function unauth(Request $request)
+    public function unauth(TicketStoreByUnauthRequest $request)
     {
-        $categoriesIds = Category::notArchived()->get()->pluck('id')->toArray();
-
-        $request->validate([
-            'raised' => 'required|string|min:5',
-            'phone' => 'required',
-            'description' => 'required',
-            'category_id' => ['nullable', Rule::in($categoriesIds)]
-        ]);
-
         $ticket = Ticket::create([
             'raised' => request('raised'),
             'phone' => request('phone'),
             'description' => request('description'),
             'category_id' => request('category_id'),
-            'status' => 'new',
-            'priority' => 'normal'
         ]);
 
         return redirect('/')->with('status', 'Заявка добавлена!');
@@ -171,26 +150,19 @@ class TicketController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  App\Http\Requests\TicketUpdateRequest  $request
      * @param  \App\Ticket  $ticket
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Ticket $ticket)
+    public function update(TicketUpdateRequest $request, Ticket $ticket)
     {
-        $categoriesIds = Category::notArchived()->get()->pluck('id')->toArray();
-
-        $validatedData = $request->validate([
-            'raised' => 'required|string|min:5',
-            'phone' => 'required',
-            'description' => 'required',
-            'category_id' => ['nullable', Rule::in($categoriesIds)],
-            'status' => ['required', Rule::in(['new', 'in progress', 'awaiting', 'closed'])],
-            'priority' => ['required', Rule::in(['low', 'normal', 'high'])],
-            'user_id' => 'nullable|exists:users,id',
-            'notes' => 'nullable|string'
+        $ticket->fill([
+            'raised' => request('raised'),
+            'phone' => request('phone'),
+            'description' => request('description'),
+            'category_id' => request('category_id')
         ]);
 
-        $ticket->fill($validatedData);
         $ticket->status = $validatedData['status'] ?? 'new';
         $ticket->priority = $validatedData['priority'] ?? 'normal';
         $ticket->user_id = $validatedData['user_id'] ?? null;

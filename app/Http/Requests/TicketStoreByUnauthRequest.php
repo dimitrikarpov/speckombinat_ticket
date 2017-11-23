@@ -3,8 +3,10 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
+use App\Category;
 
-class TicketCreateByGuestRequest extends FormRequest
+class TicketStoreByUnauthRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -23,6 +25,8 @@ class TicketCreateByGuestRequest extends FormRequest
      */
     public function rules()
     {
+        $categoriesIds = Category::notArchived()->get()->pluck('id')->toArray();
+
         return [
             'raised' => 'required|string|min:5',
             'phone' => 'required',
